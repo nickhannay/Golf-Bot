@@ -7,14 +7,16 @@ body{
     background-color: slategray;
 }
 
-
-
-#page-container{
-    position: relative;
-    min-height: 100vh;
+form {
+    display: flex;
+    flex-direction: column;
 }
 
+
+
 #content {
+    font-family: 'Teko', sans-serif;
+    font-size: larger;
     display: flex;
     align-items: center;
     flex-direction: column;

@@ -3,13 +3,16 @@
 <html lang="en-us">
     <%- include('partials/head') %>
     <body>
-        <div id="page-container">
-            <div id="content">
-                <div id="welcome-container">
-                    <h1>Welcome to Golf Bot. Log in to get started.</h1>
-                </div>
+        <div id="content">
+            <div id="welcome-container">
+                <h1>Welcome to Golf Bot!</h1>
+                <h1>Log in to get started</h1>
+                <form>
+                    <input type="text" placeholder="email">
+                    <input type="password" placeholder="password">
+                </form>
             </div>
-            <%- include('partials/footer') %>
         </div>
+        <%- include('partials/footer') %>
     </body>
 </html>
