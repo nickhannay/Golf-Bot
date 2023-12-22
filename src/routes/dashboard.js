@@ -1,9 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const debug = require('debug')('golf-bot:server');
+const express = require('express');
+const router = express.Router();
 
 
-router.get('/dashboard', function(req, res, next) {
-  res.render('dashboard')
+router.post('/', (req, res, next) => {
+  debug("received form submission")
+  res.send("received")
 });
 
 module.exports = router;

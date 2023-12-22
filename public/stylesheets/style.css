@@ -10,16 +10,39 @@ body{
 form {
     display: flex;
     flex-direction: column;
+    margin-top: 10px;
+}
+
+#welcome-container h1{
+    margin: 0;
+    text-align: center;
+    font-family: 'Teko', sans-serif;
+}
+
+#welcome-container {
+    display: flex;
+    flex-direction: column;
+    font-size: x-large;
+}
+
+.input-login{
+    min-height: 2rem;
+}
+
+#input-username{
+    margin-bottom: 0.25rem
+}
+
+#btn-submit{
+    margin-top: 0.5rem;
+    width: fit-content;
+    align-self: center;
 }
 
 
-
 #content {
-    font-family: 'Teko', sans-serif;
-    font-size: larger;
     display: flex;
     align-items: center;
-    flex-direction: column;
     justify-content: center;
     min-height: 100vh;
 }
