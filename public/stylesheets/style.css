@@ -1,0 +1,36 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: slategray;
+}
+
+
+
+#page-container{
+    position: relative;
+    min-height: 100vh;
+}
+
+#content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 2.5rem;
+    width: 100%;
+
+}
+
+a {
+  color: #00B7FF;
+}
