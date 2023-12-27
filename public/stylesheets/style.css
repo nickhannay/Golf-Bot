@@ -14,10 +14,17 @@ form {
 }
 
 #welcome-container h1{
-    margin: 0;
+    margin-bottom: 3rem;
     text-align: center;
     font-family: 'Teko', sans-serif;
 }
+
+#welcome-container h3{
+    text-align: center;
+    margin:0;
+    font-family: 'Teko', sans-serif;
+}
+
 
 #welcome-container {
     display: flex;

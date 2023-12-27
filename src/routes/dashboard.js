@@ -3,9 +3,15 @@ const express = require('express');
 const router = express.Router();
 
 
-router.post('/', (req, res, next) => {
-  debug("received form submission")
-  res.send("received")
+router.post('/', async (req, res, next) => {
+    const email = req.body['email'];
+    const pass = req.body['password'];
+
+
+    debug(`Received login request for (${email})`)
+
+    
+    res.send("received")
 });
 
 module.exports = router;
