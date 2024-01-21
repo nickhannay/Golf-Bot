@@ -24,7 +24,8 @@ class GOLF_BOT{
         });
         const json = await res.json();
         debug(json);
-        this.#token = json.access_token;
+        this.#token = json.access_token || null;
+        debug(this.#token)
         return this.#token;
     }
 }
