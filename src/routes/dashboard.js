@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 router.get('/', async (req, res, next) => {
-    res.send("Successfully logged in!");
+    res.render('dashboard')
 });
 
 

@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
         res.redirect('dashboard')
     }*/
 
-    res.render('dashboard')
+    res.redirect('dashboard')
 
     
 });
