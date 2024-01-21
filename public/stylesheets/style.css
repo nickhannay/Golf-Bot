@@ -1,15 +1,13 @@
-body, html {
+body {
     margin: 0;
     padding: 0;
+    visibility: hidden;
 }
 
-body{
-    background-color: slategray;
-}
 
 form {
-    display: flex;
-    flex-direction: column;
+    display: inherit;
+    flex-direction: inherit;
     margin-top: 10px;
 }
 
@@ -31,6 +29,7 @@ form {
 
 .input-login{
     min-height: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 
@@ -40,12 +39,51 @@ form {
     align-self: center;
 }
 
+#calender{
+    width:500px;
+    height: 500px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
 
-#content {
+#calender #cal-header {
+    background-color: green;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 2rem;
+    padding: 5px;
+   
+}
+
+
+#calender #cal-dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background-color: lightblue;
+    gap: 15px;
+
+}
+
+.day{
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.selected{
+    background-color:antiquewhite;
+}
+
+
+
+.content {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background-color: slategray;
 }
 
 

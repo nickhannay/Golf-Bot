@@ -1,3 +1,5 @@
+"use strict";
+
 const express = require('express');
 const router = express.Router();
 const debug = require('debug')('golf-bot:server');
@@ -12,9 +14,9 @@ router.get('/', function(req, res, next) {
 router.post('/', async (req, res) => {
     const email = req.body['email'];
     const password = req.body['password'];
-    const gBot = new GOLF_BOT(email, password);
+    const gBot = new GOLF_BOT(email, password)
 
-    const token = await gBot.getToken();
+    /*const token = await gBot.getToken();
 
 
     
@@ -22,9 +24,11 @@ router.post('/', async (req, res) => {
     if(token === null){
         res.render('index', {error: 'Invalid login credentials'})
     }
-    else[
+    else{
         res.redirect('dashboard')
-    ]
+    }*/
+
+    res.render('dashboard')
 
     
 });
