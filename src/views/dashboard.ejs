@@ -3,6 +3,7 @@
     <%- include('partials/head') %>
     <body>
         <div id="left-navbar">
+            <h5 id="calender-label">Date</h5>
             <div id="calender">
                 <div id="cal-header">
                     <div style="visibility: hidden;">previous month</div>
@@ -10,13 +11,13 @@
                     <div style="visibility: hidden;">next month</div>
                 </div>
                 <div id="cal-dates">
-                    <div class="day">SUN</div>
-                    <div class="day">MON</div>
-                    <div class="day">TUE</div>
-                    <div class="day">WED</div>
-                    <div class="day">THU</div>
-                    <div class="day">FRI</div>
-                    <div class="day">SAT</div>
+                    <div class="day day-label">SUN</div>
+                    <div class="day day-label">MON</div>
+                    <div class="day day-label">TUE</div>
+                    <div class="day day-label">WED</div>
+                    <div class="day day-label">THU</div>
+                    <div class="day day-label">FRI</div>
+                    <div class="day day-label">SAT</div>
                 </div>
             </div>
 
@@ -31,19 +32,33 @@
                 <button class="num-players-toggle" style="border-left: solid 1px #e0e0e0">
                     <span>4</span>
                 </button>
-                <button class="num-players-toggle" style="border-left: solid 1px #e0e0e0;background: green">
+                <button id="default-players" class="num-players-toggle" style="border-left: solid 1px #e0e0e0;">
                     <span>Any</span>
                 </button>
             </div>
 
-            
+            <h5 for="hole-select">Hole Selection</h5>
+            <select name="hole-select" id="hole-select">
+                <option>Any</option>
+                <option>9 Holes</option>
+                <option>18 Holes</option>
+            </select>
+
+
         </div>
 
         <!--  -->
-
         <div id="right-teetimes">
-
+            <% if (Array.isArray(teetimes)) { %>
+                    <% teetimes.forEach(time => { %>
+                        <div class="teetime-container"><%= time.startTime %></div>
+                    <% });%>
+            <% } else { %>
+                <div style="width: inherit; height: inherit;display: flex;justify-content: center;align-items: center;"> <span>NO TEE TIMES AVAILABLE.</span></div>
+            <% } %>
         </div>
+         
+        
     </body>
     <script src="javascripts/client.js"></script>
 

@@ -46,6 +46,18 @@ form {
     background-color: whitesmoke;
     height: 100vh;
     font-family: 'Noto Sans' ,' Poppins' ,sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.teetime-container{
+    width: auto;
+    height: 2rem;
+    margin: 1rem;
+    border: 3px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -76,12 +88,13 @@ form {
 
 
 #calender #cal-header {
-    background-color: green;
+    background-color: #5e9332;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-height: 2rem;
+    min-height: 2.5rem;
     padding: 5px;
+    font-size: larger;
    
 }
 
@@ -100,11 +113,26 @@ form {
     text-align: center;
 }
 
-.selected{
+.day-label{
+    cursor: default;
+}
+
+.previous-day{
+    cursor:not-allowed;
+    color: #c2c9d6;
+}
+
+
+
+.calender-selected{
     background-color:antiquewhite;
 }
 
 
+.players-selected{
+    background-color: green;
+    color: white;
+}
 
 /* ------------------------------- */
 
@@ -134,16 +162,31 @@ form {
     border: none;
 }
 
+.num-players-toggle span{
+    font-size: large;
+}
+
 
 h5 {
     
     line-height: 18px;
-    font-size: 16px;
+    font-size: larger;
     font-weight: 400;
     margin: 2rem 0 0.5rem 0;
 }
     
 
+
+#hole-select {
+    height: 3rem;
+    font-size: large;
+    cursor: pointer;
+}
+
+#hole-select option {
+    font-size: large;
+
+}
 
 
 .content {
