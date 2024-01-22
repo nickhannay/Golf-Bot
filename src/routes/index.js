@@ -16,12 +16,12 @@ router.post('/', async (req, res) => {
     const password = req.body['password'];
     const gBot = new GOLF_BOT(email, password)
 
-    /*const token = await gBot.getToken();
+    const token = await gBot.getToken();
 
 
     
 
-    if(token === null){
+    /*if(token === null){
         res.render('index', {error: 'Invalid login credentials'})
     }
     else{

@@ -12,7 +12,6 @@ form {
 }
 
 
-
 #welcome-container {
     display: flex;
     flex-direction: column;
@@ -21,11 +20,13 @@ form {
     font-family: 'Teko', sans-serif;
 }
 
+
 #welcome-container #error-msg{
     margin-top: 4rem;
     background-color: red;
     opacity: 50%;
 }
+
 
 .input-login{
     min-height: 2rem;
@@ -39,13 +40,40 @@ form {
     align-self: center;
 }
 
+#right-teetimes {
+    width: 75%;
+    float: right;
+    background-color: whitesmoke;
+    height: 100vh;
+    font-family: 'Noto Sans' ,' Poppins' ,sans-serif;
+}
+
+
+#left-navbar 
+{
+    width: 25%;
+    float: left;
+    outline: none;
+    box-sizing: border-box;
+    background-color: #fff;
+    height: 100vh;
+    font-family: 'Noto Sans', 'Poppins' ,sans-serif;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+
+
+
+/* CALENDER  */
+
 #calender{
-    width:500px;
-    height: 500px;
     margin: 0;
     display: flex;
     flex-direction: column;
 }
+
 
 #calender #cal-header {
     background-color: green;
@@ -61,8 +89,8 @@ form {
 #calender #cal-dates {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    background-color: lightblue;
-    gap: 15px;
+    background-color: white;
+    gap: 10px;
 
 }
 
@@ -75,6 +103,46 @@ form {
 .selected{
     background-color:antiquewhite;
 }
+
+
+
+/* ------------------------------- */
+
+
+
+/* Number of players toggle */
+#num-players {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    border: 1px solid #d7d7d7;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 3rem;
+}
+
+.num-players-toggle{
+    position: relative;
+    flex-grow: 1;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+}
+
+
+h5 {
+    
+    line-height: 18px;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 2rem 0 0.5rem 0;
+}
+    
 
 
 

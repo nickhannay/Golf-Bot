@@ -2,21 +2,47 @@
 <html lang="en-us">
     <%- include('partials/head') %>
     <body>
-        <div id="calender">
-            <div id="cal-header">
-                <div style="visibility: hidden;">previous month</div>
-                <div id="current-month"></div>
-                <div style="visibility: hidden;">next month</div>
+        <div id="left-navbar">
+            <div id="calender">
+                <div id="cal-header">
+                    <div style="visibility: hidden;">previous month</div>
+                    <div id="current-month"></div>
+                    <div style="visibility: hidden;">next month</div>
+                </div>
+                <div id="cal-dates">
+                    <div class="day">SUN</div>
+                    <div class="day">MON</div>
+                    <div class="day">TUE</div>
+                    <div class="day">WED</div>
+                    <div class="day">THU</div>
+                    <div class="day">FRI</div>
+                    <div class="day">SAT</div>
+                </div>
             </div>
-            <div id="cal-dates">
-                <div class="day">SUN</div>
-                <div class="day">MON</div>
-                <div class="day">TUE</div>
-                <div class="day">WED</div>
-                <div class="day">THU</div>
-                <div class="day">FRI</div>
-                <div class="day">SAT</div>
+
+            <h5>Players</h5>
+            <div id="num-players">
+                <button class="num-players-toggle">
+                    <span>2</span>
+                </button>
+                <button class="num-players-toggle" style="border-left: solid 1px #e0e0e0">
+                    <span>3</span>
+                </button>
+                <button class="num-players-toggle" style="border-left: solid 1px #e0e0e0">
+                    <span>4</span>
+                </button>
+                <button class="num-players-toggle" style="border-left: solid 1px #e0e0e0;background: green">
+                    <span>Any</span>
+                </button>
             </div>
+
+            
+        </div>
+
+        <!--  -->
+
+        <div id="right-teetimes">
+
         </div>
     </body>
     <script src="javascripts/client.js"></script>
