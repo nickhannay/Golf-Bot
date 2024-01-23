@@ -9,6 +9,8 @@ pageReady(() => {
     document.body.style.visibility = 'visible'
 })
 
+
+let previousDate = null
 document.addEventListener('DOMContentLoaded', () => {
     createCalender()
 
@@ -61,6 +63,7 @@ function createCalender(){
 
         if(today.getDate() === i){
             day.classList.add('calender-selected')
+            previousDate = day
         }
         day.innerText = i
         calender.appendChild(day)
@@ -73,16 +76,86 @@ function focusDefaultPlayers(){
     defaultPlayers.classList.add('players-selected')
 }
 
+
 function watchCalender(){
     const cal = document.getElementById('cal-dates')
 
-    cal.addEventListener('click', (ev) => {
-        const selectedDay = ev.target.innerText
+    cal.addEventListener('click', async (ev) => {
+        // remove styling from previous date
+        previousDate.classList.remove('calender-selected')
+
+        const selection = ev.target
+        selection.classList.add('calender-selected')
+        previousDate = selection
+        
+        const selectedDay = selection.innerText
         const today = new Date()
         const month = today.getMonth() + 1 
-        const selectedDate = today.getFullYear() + '-' + month + '-' + selectedDay
+        const searchDate = today.getFullYear() + '-' + month + '-' + selectedDay
 
-        console.log(selectedDate)
+        const dropdown = document.getElementById('hole-select')
+        const selectedOption = dropdown.options[dropdown.selectedIndex]
+
+        const holes = selectedOption.innerText === 'Any' ? '0' : selectedOption.innerText.slice(0,2)
+        
+
+        const params = {
+            searchDate: searchDate,
+            holes: holes,
+            numberOfPlayer: '0',
+            courseIds:'2',
+            searchTimeType:'0',
+            teeOffTimeMin:'0',
+            teeOffTimeMax:'23',
+            isChangeTeeOffTime:'true',
+            teeSheetSearchView:'5',
+            classCode:'R',
+            defaultOnlineRate:'N',
+            isUseCapacityPricing:'false',
+            memberStoreId:'1',
+            searchType:'1',
+        }
+        const res = await fetch('https://golfburnaby.cps.golf/onlineres/onlineapi/api/v1/onlinereservation/TeeTimes?' + new URLSearchParams(params),{
+            headers: {
+                'x-apiKey' : '8ea2914e-cac2-48a7-a3e5-e0f41350bf3a',
+                'x-componentId': '1',
+                'x-ismobile': 'false',
+                'x-productid': '1',
+                'x-requestid': '3a4e1ebb-4041-9595-8589-ec0aaf8ef193',
+                'x-siteid' : '1',
+                'X-TerminalId': '3',
+                'x-timezone-offset': '480',
+                'x-timezoneid':  'America/Vancouver',
+                'Referer': 'https://golfburnaby.cps.golf/onlineresweb/search-teetime?TeeOffTimeMin=0&TeeOffTimeMax=23.999722222222225',
+                'Host': 'golfburnaby.cps.golf',
+                'Authorization': `Bearer null`
+            }
+        })
+
+        const times = await res.json()
+        updateTeeTimes(times)
     })
 
 }
+
+
+function updateTeeTimes(times){
+    const teetimeDiv = document.getElementById('right-teetimes')
+    teetimeDiv.innerHTML = '' 
+
+    if( Array.isArray(times) && times.length > 0){
+        times.forEach((time) => {
+            const container = document.createElement('div')
+            container.classList.add('teetime-container')
+            container.innerText = time.startTime
+            teetimeDiv.appendChild(container)
+
+        })
+    }
+    else{
+        const container = document.createElement('div')
+        container.classList.add('missingTeeTimes')
+        container.innerHTML = "NO TEE TIMES AVAILABLE"
+    }
+}
+

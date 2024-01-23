@@ -21,12 +21,12 @@ class GOLF_BOT{
         return json.access_token || null;
     }
 
-    static async getTeeTimes(date, token){
-        const searchDate = date.getFullYear() + '-' + date.getMonth()+1 + '-' + date.getDate()
+    static async getTeeTimes(date, token = 'null', holes = '0', players = '0'){
+
         let params = {
-            searchDate: searchDate,
-            holes:'0',
-            numberOfPlayer:'0',
+            searchDate: date,
+            holes: holes,
+            numberOfPlayer: players,
             courseIds:'2',
             searchTimeType:'0',
             teeOffTimeMin:'0',

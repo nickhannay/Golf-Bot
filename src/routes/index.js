@@ -11,21 +11,22 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
     const email = req.body['email'];
     const password = req.body['password'];
 
-    const token = await GOLF_BOT.getToken(email, password)
+    //const token = await GOLF_BOT.getToken(email, password)
+    req.session.token = 256
+    res.redirect('dashboard')
 
 
 
-    if(token === null){
+    /*if(token === null){
         res.render('index', {error: 'Invalid login credentials'})
     }
     else{
-        req.session.token = token
-        res.redirect('dashboard')
-    }
+        
+    }*/
 
     
 });

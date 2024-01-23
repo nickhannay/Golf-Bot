@@ -5,12 +5,15 @@ const GOLF_BOT = require('../golf-bot.js')
 
 
 router.get('/', async (req, res, next) => {
-    
-    const times = await GOLF_BOT.getTeeTimes(new Date(), )
+    const today = new Date()
+    const searchDate = today.getFullYear() + '-' + today.getMonth()+1 + '-' + today.getDate()
+    const times = await GOLF_BOT.getTeeTimes(searchDate)
 
 
     res.render('dashboard', {teetimes: times})
 });
+
+
 
 
 module.exports = router;
