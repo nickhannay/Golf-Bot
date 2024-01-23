@@ -14,10 +14,14 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src', 'views'));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+
+
 app.use(session({
     resave: false,
     secret: 'test',
@@ -25,12 +29,24 @@ app.use(session({
 }))
 
 
-
-// Routes
 app.use('/', indexRouter);
+app.use((req, res ,next) => {
+    if (req.session && req.session.token){
+        return next()
+    }
+    else{
+        res.redirect('/')
+    }
+})
+
+
+
+
+// Protected Routes
 app.use('/dashboard', dashboardRouter);
 
-app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 
 module.exports = app;

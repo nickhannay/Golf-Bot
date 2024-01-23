@@ -18,13 +18,11 @@ class GOLF_BOT{
             body: `grant_type=password&scope=openid%20profile%20onlinereservation%20sale%20inventory%20sh%20customer%20email%20recommend%20references&username=${email}&password=${password}&client_id=js1&client_secret=v4secret`
         });
         const json = await res.json();
-        debug(json);
         return json.access_token || null;
     }
 
-    static async getTeeTimes(date){
+    static async getTeeTimes(date, token){
         const searchDate = date.getFullYear() + '-' + date.getMonth()+1 + '-' + date.getDate()
-        console.log(`<${searchDate}>`)
         let params = {
             searchDate: searchDate,
             holes:'0',
@@ -58,11 +56,10 @@ class GOLF_BOT{
                 'x-websiteid': '68ffa70d-4c31-4511-f6c6-08db3507e474',
                 'Referer': 'https://golfburnaby.cps.golf/onlineresweb/search-teetime?TeeOffTimeMin=0&TeeOffTimeMax=23.999722222222225',
                 'Host': 'golfburnaby.cps.golf',
-                'Authorization': 'Bearer null'
+                'Authorization': `Bearer ${token}`
             },
         })
         const times = await res.json()
-        debug('inside bot' + times)
 
         return times
     }
