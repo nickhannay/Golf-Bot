@@ -7,7 +7,8 @@ const session = require('express-session')
 
 const indexRouter = require('./src/routes/index');
 const dashboardRouter = require('./src/routes/dashboard');
-const reserveRouter = require('./src/routes/reserve')
+const reserveRouter = require('./src/routes/reserve');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -23,11 +24,15 @@ app.use(cors());
 
 
 
+
+
 app.use(session({
     resave: false,
     secret: 'test',
     saveUninitialized: true
 }))
+
+app.use(cookieParser())
 
 
 app.use('/', indexRouter);

@@ -2,8 +2,16 @@
 <html lang="en-us">
     <%- include('partials/head') %>
     <body>
-        <div style="display:flex;justify-content: center;align-items: center;height: 100%;width: 100%">
-            <h3> <%= teeSheetId %> </h3>
+        <div style="display:flex;justify-content: center;height: 100vh;width: 100%;background-color:grey">
+            <div id="reserve-content" style="width:50%; height:100%;display: flex;background: white;padding:2rem">
+                <div style="width: 70%;border: 1px solid lightgray;border-radius: 12px; height:50%">
+                    <div style="padding:0.5rem 0 0 2rem;">
+                        <h3>Customize your Reservation</h3>
+                        <h2>Full Name: <%=fullName %></h2>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </body>
     <script src="javascripts/client.js"></script> 

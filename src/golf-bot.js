@@ -53,7 +53,7 @@ class GOLF_BOT{
                 'X-TerminalId': '3',
                 'x-timezone-offset': '480',
                 'x-timezoneid':  'America/Vancouver',
-                'x-websiteid': '68ffa70d-4c31-4511-f6c6-08db3507e474',
+                // needed to get 2 player only courses, but restricts access to 5 days in advance  -> 'x-websiteid': '68ffa70d-4c31-4511-f6c6-08db3507e474',
                 'Referer': 'https://golfburnaby.cps.golf/onlineresweb/search-teetime?TeeOffTimeMin=0&TeeOffTimeMax=23.999722222222225',
                 'Host': 'golfburnaby.cps.golf',
                 'Authorization': `Bearer ${token}`
@@ -62,6 +62,20 @@ class GOLF_BOT{
         const times = await res.json()
 
         return times
+    }
+
+    static async getUserInfo(token){
+        const req = await fetch('https://golfburnaby.cps.golf/identityapi/connect/userinfo', {
+            headers: {
+                'x-componentId' : '1',
+                'x-apiKey' : '8ea2914e-cac2-48a7-a3e5-e0f41350bf3a',
+                'Authorization' : `Bearer ${token}`
+            }
+        })
+
+        const json = await req.json()
+
+        return json
     }
 }
 

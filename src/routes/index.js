@@ -11,12 +11,16 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const email = req.body['email'];
     const password = req.body['password'];
 
-    //const token = await GOLF_BOT.getToken(email, password)
-    req.session.token = 256
+    const token = await GOLF_BOT.getToken(email, password)
+    req.session.token = token
+
+    const json = await GOLF_BOT.getUserInfo(token) 
+
+    res.cookie('fullName', `${json.first_name} ${json.last_name}`)
     res.redirect('dashboard')
 
 

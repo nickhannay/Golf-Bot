@@ -165,27 +165,7 @@ function updateTeeTimes(times){
                                             ${time.holesDisplay} HOLES | ${time.playersDisplay}
                                         </div>
                                         `
-                container.addEventListener('click', async (ev) => {
-                    const button = ev.target.closest('.teetime-container');
-                    const selectedTeeTime = button.getAttribute('id')
-                    console.log(`tee sheet id: ${selectedTeeTime}`)
-
-
-                    const res = await fetch('/reserve',
-                    {
-                        method : "POST",
-                        body: JSON.stringify({ id : selectedTeeTime}),
-                        headers: {
-                            'Content-Type': 'application/json',
-                        }
-                    })
-
-                    const json = await res.json()
-                    if (json.redirect){
-                        window.location.href = json.redirect
-                    }
-                    
-                })
+                container.addEventListener('click', clickTeeTime(ev))
                 
                 row.appendChild(container)
             })
@@ -221,4 +201,25 @@ function convert12hr(timeStamp){
     }
 
     return `${hour12}:${minute} ${am_pm}`
+}
+
+async function clickTeeTime(ev){
+    const button = ev.target.closest('.teetime-container');
+    const selectedTeeTime = button.getAttribute('id')
+    console.log(`tee sheet id: ${selectedTeeTime}`)
+
+
+    const res = await fetch('/reserve',
+    {
+        method : "POST",
+        body: JSON.stringify({ teeSheetId : selectedTeeTime}),
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+
+    const json = await res.json()
+    if (json.redirect){
+        window.location.href = json.redirect
+    }
 }
