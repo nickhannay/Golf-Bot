@@ -144,18 +144,29 @@ function updateTeeTimes(times){
     teetimeDiv.innerHTML = '' 
 
     if( Array.isArray(times) && times.length > 0){
-        times.forEach((time) => {
-            const container = document.createElement('div')
-            container.classList.add('teetime-container')
-            container.innerText = time.startTime
-            teetimeDiv.appendChild(container)
+        for(let i = 0; i < times.length; i+=4 ){
+            let sub_times = times.slice(i, i + 4)
 
-        })
+            const row = document.createElement('div')
+            row.classList.add('teetime-row')
+            console.log(`times subarray = ${sub_times}`)
+
+            sub_times.forEach((time) => {
+                const container = document.createElement('div')
+                container.classList.add('teetime-container')
+                container.innerText = time.startTime
+                row.appendChild(container)
+            })
+            
+            teetimeDiv.appendChild(row)
+
+        }
     }
     else{
         const container = document.createElement('div')
         container.classList.add('missingTeeTimes')
         container.innerHTML = "NO TEE TIMES AVAILABLE"
+        teetimeDiv.appendChild(container)
     }
 }
 
