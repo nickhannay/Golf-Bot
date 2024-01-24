@@ -5,7 +5,6 @@ let pageReady = (cb) => {
 }
 
 pageReady(() => {
-    console.log("test")
     document.body.style.visibility = 'visible'
 })
 
@@ -149,17 +148,27 @@ function updateTeeTimes(times){
 
             const row = document.createElement('div')
             row.classList.add('teetime-row')
-            console.log(`times subarray = ${sub_times}`)
 
             sub_times.forEach((time) => {
                 const teeTime = convert12hr(time.startTime)
 
-                const container = document.createElement('div')
+                const container = document.createElement('button')
+                container.setAttribute('id', time.teeSheetId)
                 container.classList.add('teetime-container')
-                container.innerHTML = `<div class="teetime-TimeLabel"><span>${teeTime}</span><span class="start-hole">Tee ${time.startingTee}</span></div>`
-            
-
-
+                container.innerHTML =   `
+                                        <div class="teetime-TimeLabel">
+                                            <span style="margin-bottom: 1.5rem">${teeTime}</span>
+                                            <span class="start-hole">Tee ${time.startingTee}</span>
+                                            <span style="color:#C48A1C" class="start-hole">${time.courseName}</span>
+                                        </div>
+                                        <div class="teetime-footer">
+                                            ${time.holesDisplay} HOLES | ${time.playersDisplay}
+                                        </div>
+                                        `
+                container.addEventListener('click', (ev) => {
+                    const button = ev.target.closest('.teetime-container');
+                    console.log(`tee sheet id: ${button.getAttribute('id')}`)
+                })
 
                 row.appendChild(container)
             })

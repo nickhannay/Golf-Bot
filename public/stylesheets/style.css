@@ -61,14 +61,19 @@ form {
 }
 
 .teetime-container{
-    width: calc(25% - 6rem);
-    height: calc(100% - 6rem);
-    border: 3px solid #5e9332;
-    margin: 0 3rem;
+    width: calc(25% - 3rem);
+    height: calc(100% - 3rem);
+    border: 0.3px solid #5e9332;
+    background: #5e9332;
+    margin: 0 1.5rem;
     display: flex;
     border-radius: 12px;
     flex-direction: column;
+    cursor: pointer;
+    
 }
+
+
 
 
 .missingTeeTimes{
@@ -83,16 +88,32 @@ form {
     font-size: 1.7em;
     font-weight: 550;
     text-align: left;
-    margin: 10px 0 10px 10px;
+    padding: 10px 0 0 10px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    height: 70%;
+    border-radius: 12px;
+    background-color: white;
+    margin-top: 2px;
+}
+
+.teetime-footer {
+    height: 30%;
+    text-align: left;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    padding-left: 10px;
+    font-weight: 400;
+
 }
 
 .start-hole{
     font-size: 1rem;
     font-weight: 300;
-    margin: 1rem 0;
+    margin: 0.25rem 0;
 }
 
 
