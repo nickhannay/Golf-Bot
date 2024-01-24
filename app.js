@@ -7,6 +7,7 @@ const session = require('express-session')
 
 const indexRouter = require('./src/routes/index');
 const dashboardRouter = require('./src/routes/dashboard');
+const reserveRouter = require('./src/routes/reserve')
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use((req, res ,next) => {
 
 // Protected Routes
 app.use('/dashboard', dashboardRouter);
+app.use('/reserve', reserveRouter)
 
 
 

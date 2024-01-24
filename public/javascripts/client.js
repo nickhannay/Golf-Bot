@@ -140,7 +140,7 @@ function watchCalender(){
 
 function updateTeeTimes(times){
     const teetimeDiv = document.getElementById('right-teetimes')
-    teetimeDiv.innerHTML = '' 
+    teetimeDiv.innerHTML = ''
 
     if( Array.isArray(times) && times.length > 0){
         for(let i = 0; i < times.length; i+=4 ){
@@ -165,11 +165,28 @@ function updateTeeTimes(times){
                                             ${time.holesDisplay} HOLES | ${time.playersDisplay}
                                         </div>
                                         `
-                container.addEventListener('click', (ev) => {
+                container.addEventListener('click', async (ev) => {
                     const button = ev.target.closest('.teetime-container');
-                    console.log(`tee sheet id: ${button.getAttribute('id')}`)
-                })
+                    const selectedTeeTime = button.getAttribute('id')
+                    console.log(`tee sheet id: ${selectedTeeTime}`)
 
+
+                    const res = await fetch('/reserve',
+                    {
+                        method : "POST",
+                        body: JSON.stringify({ id : selectedTeeTime}),
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    })
+
+                    const json = await res.json()
+                    if (json.redirect){
+                        window.location.href = json.redirect
+                    }
+                    
+                })
+                
                 row.appendChild(container)
             })
             
