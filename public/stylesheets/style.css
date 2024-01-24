@@ -62,13 +62,14 @@ form {
 
 .teetime-container{
     width: calc(25% - 6rem);
-    height: 3rem;
-    border: 3px solid black;
+    height: calc(100% - 6rem);
+    border: 3px solid #5e9332;
     margin: 0 3rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    border-radius: 12px;
+    flex-direction: column;
 }
+
 
 .missingTeeTimes{
     width: 100%; 
@@ -77,6 +78,24 @@ form {
     justify-content: center;
     align-items: center;
 }
+
+.teetime-TimeLabel{
+    font-size: 1.7em;
+    font-weight: 550;
+    text-align: left;
+    margin: 10px 0 10px 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.start-hole{
+    font-size: 1rem;
+    font-weight: 300;
+    margin: 1rem 0;
+}
+
+
 
 
 #left-navbar 
