@@ -212,7 +212,10 @@ let clickTeeTime = async (ev) => {
     const res = await fetch('/reserve',
     {
         method : "POST",
-        body: JSON.stringify({ teeSheetId : selectedTeeTime}),
+        body: JSON.stringify({
+             teeSheetId : selectedTeeTime,
+             numPlayers : 3
+            }),
         headers: {
             'Content-Type': 'application/json',
         }

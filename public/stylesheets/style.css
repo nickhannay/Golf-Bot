@@ -271,3 +271,44 @@ footer p {
 a {
   color: #00B7FF;
 }
+
+
+
+/*  ----------------- Customize Players ---------------------    */
+
+#customize-players {
+    height: 100%;
+    display:flex; 
+    flex-direction: column;
+    padding-top: 1rem;
+    overflow: hidden;
+}
+
+.customize-cell {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.customize-cell-label {
+    margin-bottom: 7px;
+}
+
+.customize-cell-content {
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 3rem;
+    border-radius: 3px; 
+    background-color: rgb(238, 238, 238);
+}
+
+.customize-cell-input{
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0 0 0 10px; 
+    margin: 0;
+    font-size: medium;
+    height: 100%;
+    width: 100%;
+}

@@ -2,12 +2,28 @@
 <html lang="en-us">
     <%- include('partials/head') %>
     <body>
-        <div style="display:flex;justify-content: center;height: 100vh;width: 100%;background-color:grey">
+        <div style="display:flex;justify-content: center;height: 100vh;width: 100%;background-color:rgb(238, 238, 238); font-family:'Noto Sans', 'Poppins', sans-serif;">
             <div id="reserve-content" style="width:50%; height:100%;display: flex;background: white;padding:2rem">
                 <div style="width: 70%;border: 1px solid lightgray;border-radius: 12px; height:50%">
-                    <div style="padding:0.5rem 0 0 2rem;">
-                        <h3>Customize your Reservation</h3>
-                        <h2>Full Name: <%=fullName %></h2>
+                    <div style="padding:1rem 2rem 0 2rem;">
+                        <h3 style="margin:0;font-weight:300">Customize your Reservation</h3>
+                        <div style="font-size:1em ;color: rgba(114, 112, 112, 0.658);margin-top:5px">
+                            <span>Let us know who is playing with you below.</span>
+                        </div>
+                        <div id="customize-players">
+                            <% for(let i = 0; i < numPlayers; i++){ %>
+                                <div class="customize-cell">
+                                    <h3 class="customize-cell-label">Player <%=i + 1%> </h3>
+                                    <div class="customize-cell-content">
+                                        <%if (i === 0) { %>
+                                            <input class="customize-cell-input" type="text" value="<%= fullName%>">
+                                        <% } else {%>
+                                            <input class="customize-cell-input" type="text" placeholder="Rename Player <%=i + 1%>">
+                                        <% } %>
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
                     </div>
                 </div>
             </div>
