@@ -276,11 +276,12 @@ a {
 
 
 #reserve-content {
-    width:50%; 
-    height:100vh;
+    width:60%; 
     display: flex;
     background: white;
-    padding: 2rem
+    padding: 2rem;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 #reserve-full-page{
@@ -293,19 +294,21 @@ a {
     overflow: hidden;
 }
 
-#left-side-players{
-    width: 60%;
-    border: 1px solid lightgray;
-    border-radius: 12px; 
-    height:70%
-}
 
-#right-side-price{
-    width: 37%;
+
+.info-box{
     border: 1px solid lightgray;
     border-radius: 12px;
-    height: 25%;
+    height: fit-content;
+}
+
+#right-side-content{
+    width: 37%;
+    display:flex; 
+    flex-direction:column; 
+    box-sizing: border-box;
     margin-left: 2rem;
+    height: 100%;
 }
 
 
