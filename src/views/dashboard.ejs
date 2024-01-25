@@ -23,16 +23,16 @@
 
             <h5>Players</h5>
             <div id="num-players">
-                <button class="num-players-toggle">
+                <button class="num-players-toggle" onclick="focusPlayers(event)">
                     <span>2</span>
                 </button>
-                <button class="num-players-toggle" style="border-left: solid 1px #e0e0e0">
+                <button class="num-players-toggle" style="border-left: solid 1px #e0e0e0" onclick="focusPlayers(event)">
                     <span>3</span>
                 </button>
-                <button class="num-players-toggle" style="border-left: solid 1px #e0e0e0">
+                <button class="num-players-toggle" style="border-left: solid 1px #e0e0e0" onclick="focusPlayers(event)">
                     <span>4</span>
                 </button>
-                <button id="default-players" class="num-players-toggle" style="border-left: solid 1px #e0e0e0;">
+                <button id="any-players" class="num-players-toggle players-selected" style="border-left: solid 1px #e0e0e0;" onclick="focusPlayers(event)">
                     <span>Any</span>
                 </button>
             </div>

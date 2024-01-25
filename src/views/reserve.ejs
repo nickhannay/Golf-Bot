@@ -16,7 +16,7 @@
                                     <h3 class="customize-cell-label">Player <%=i + 1%> </h3>
                                     <div class="customize-cell-content">
                                         <%if (i === 0) { %>
-                                            <input class="customize-cell-input" type="text" value="<%= fullName%>">
+                                            <input class="customize-cell-input" type="text" value="<%= fullName%>" readonly="true">
                                         <% } else {%>
                                             <input class="customize-cell-input" type="text" placeholder="Rename Player <%=i + 1%>">
                                         <% } %>

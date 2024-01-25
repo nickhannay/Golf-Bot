@@ -13,8 +13,6 @@ let previousDate = null
 document.addEventListener('DOMContentLoaded', () => {
     createCalender()
 
-    focusDefaultPlayers()
-
     watchCalender()
     
 })
@@ -69,11 +67,6 @@ function createCalender(){
     }
 }
 
-
-function focusDefaultPlayers(){
-    let defaultPlayers = document.getElementById('default-players')
-    defaultPlayers.classList.add('players-selected')
-}
 
 
 function watchCalender(){
@@ -226,3 +219,9 @@ let clickTeeTime = async (ev) => {
         window.location.href = json.redirect
     }
 }
+
+// num players selection toggle
+let focusPlayers = ((ev) => {
+    const selected = ev.target.innerText
+    console.log(`clicked button: ${selected}`)
+})
