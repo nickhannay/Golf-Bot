@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function createCalender(){
     let today = new Date();
-    let month_offset = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
+    let firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
     let calender = document.getElementById('cal-dates')
     let daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()
 
@@ -47,10 +47,10 @@ function createCalender(){
 
 
     // start 1st of month on proper day of week
-    for (let i = 0; i < month_offset; i++){
+    for (let i = 0; i < firstOfMonth; i++){
         let day = document.createElement('div')
-        day.classList.add(['day', 'day-label'])
-        day.innerText = ""
+        day.classList.add("day")
+        day.classList.add("day-label")
         calender.appendChild(day)
     }
 
@@ -77,6 +77,12 @@ function watchCalender(){
     const cal = document.getElementById('cal-dates')
 
     cal.addEventListener('click', async (ev) => {
+
+        // disable clicks for day labels
+        if(ev.target.classList.contains('day-label') || ev.target.classList.contains('previous-day')){
+            return
+        }
+
         // remove styling from previous date
         previousDate.classList.remove('calender-selected')
 

@@ -161,7 +161,6 @@ form {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     background-color: white;
-    gap: 10px;
 
 }
 
@@ -173,6 +172,7 @@ form {
 
 .day-label{
     cursor: default;
+    
 }
 
 .previous-day{
