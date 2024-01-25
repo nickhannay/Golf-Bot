@@ -165,7 +165,7 @@ function updateTeeTimes(times){
                                             ${time.holesDisplay} HOLES | ${time.playersDisplay}
                                         </div>
                                         `
-                container.addEventListener('click', clickTeeTime(ev))
+                container.addEventListener('click', clickTeeTime)
                 
                 row.appendChild(container)
             })
@@ -203,7 +203,7 @@ function convert12hr(timeStamp){
     return `${hour12}:${minute} ${am_pm}`
 }
 
-async function clickTeeTime(ev){
+let clickTeeTime = async (ev) => {
     const button = ev.target.closest('.teetime-container');
     const selectedTeeTime = button.getAttribute('id')
     console.log(`tee sheet id: ${selectedTeeTime}`)
