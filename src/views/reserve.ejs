@@ -27,8 +27,28 @@
                     </div>
                 </div>
                 <div id="right-side-price">
-                    <div style="padding:1rem 2rem 0 2rem;">
-                        <h3 style="margin:0;font-weight:300"><%=teeTime%> | <%=teeDate%></h3>
+                    <div style="padding:1rem 2rem 0 2rem;display:flex; flex-direction: column;">
+                        <h3 style="margin:0;font-weight:300; width:100%"><%=teeTime%>   |   <%=teeDate%></h3>
+                        <div style="margin-top: 1rem; min-height: 30%;height:30%">
+                            <label>Course</label>
+                            <div class="customize-cell-content" style="margin-top:5px;display: flex;align-items: center;justify-content: center;">
+                                <span>Riverway Golf</span>
+                            </div>
+                        </div>
+                        <div style="min-height: 30%;margin-top:1rem;display: flex;justify-content: space-between;">
+                            <div id="holes-choice" style="width:40%">
+                                <label>Holes</label>
+                                <div class="customize-cell-content" style="margin-top:5px;display: flex;align-items: center;justify-content: center;">
+                                    <span>18</span>
+                                </div>
+                            </div>
+                            <div id="players-choice" style="width:40%">
+                                <label>Players</label>
+                                <div class="customize-cell-content" style="margin-top:5px;display: flex;align-items: center;justify-content: center;">
+                                    <span><%= numPlayers%></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
