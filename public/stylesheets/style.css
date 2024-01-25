@@ -218,6 +218,8 @@ form {
     align-items: center;
     cursor: pointer;
     border: none;
+    font-size: medium;
+    border-left: solid 1px #e0e0e0
 }
 
 .num-players-toggle span{
@@ -270,6 +272,24 @@ footer p {
 
 a {
   color: #00B7FF;
+}
+
+
+#reserve-content {
+    width:50%; 
+    height:100%;
+    display: flex;
+    background: white;
+    padding:2rem
+}
+
+#reserve-full-page{
+    display:flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    background-color:rgb(238, 238, 238);
+    font-family:'Noto Sans', 'Poppins', sans-serif;
 }
 
 

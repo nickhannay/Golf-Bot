@@ -2,9 +2,9 @@
 <html lang="en-us">
     <%- include('partials/head') %>
     <body>
-        <div style="display:flex;justify-content: center;height: 100vh;width: 100%;background-color:rgb(238, 238, 238); font-family:'Noto Sans', 'Poppins', sans-serif;">
-            <div id="reserve-content" style="width:50%; height:100%;display: flex;background: white;padding:2rem">
-                <div style="width: 70%;border: 1px solid lightgray;border-radius: 12px; height:50%">
+        <div id="reserve-full-page">
+            <div id="reserve-content">
+                <div style="width: 60%;border: 1px solid lightgray;border-radius: 12px; height:70%">
                     <div style="padding:1rem 2rem 0 2rem;">
                         <h3 style="margin:0;font-weight:300">Customize your Reservation</h3>
                         <div style="font-size:1em ;color: rgba(114, 112, 112, 0.658);margin-top:5px">
@@ -16,7 +16,7 @@
                                     <h3 class="customize-cell-label">Player <%=i + 1%> </h3>
                                     <div class="customize-cell-content">
                                         <%if (i === 0) { %>
-                                            <input class="customize-cell-input" type="text" value="<%= fullName%>" readonly="true">
+                                            <input class="customize-cell-input" type="text" value="<%= fullName%>" readonly="true" style="cursor: default">
                                         <% } else {%>
                                             <input class="customize-cell-input" type="text" placeholder="Rename Player <%=i + 1%>">
                                         <% } %>

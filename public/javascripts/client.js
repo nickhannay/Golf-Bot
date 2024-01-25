@@ -201,13 +201,15 @@ let clickTeeTime = async (ev) => {
     const selectedTeeTime = button.getAttribute('id')
     console.log(`tee sheet id: ${selectedTeeTime}`)
 
+    
+
 
     const res = await fetch('/reserve',
     {
         method : "POST",
         body: JSON.stringify({
              teeSheetId : selectedTeeTime,
-             numPlayers : 3
+             numPlayers : prevNumPlayers.innerText === 'Any' ? 4 : prevNumPlayers.innerText
             }),
         headers: {
             'Content-Type': 'application/json',
@@ -220,8 +222,13 @@ let clickTeeTime = async (ev) => {
     }
 }
 
+
+let prevNumPlayers = document.getElementById('any-players');
 // num players selection toggle
 let focusPlayers = ((ev) => {
-    const selected = ev.target.innerText
-    console.log(`clicked button: ${selected}`)
+    prevNumPlayers.classList.remove('players-selected')
+
+    const newNumPlayers = ev.target.closest('.num-players-toggle')
+    newNumPlayers.classList.add('players-selected')
+    prevNumPlayers = newNumPlayers
 })
