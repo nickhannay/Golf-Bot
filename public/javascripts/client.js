@@ -10,10 +10,14 @@ pageReady(() => {
 
 
 let previousDate = null
+let selectedDate = null
 document.addEventListener('DOMContentLoaded', () => {
     createCalender()
 
     watchCalender()
+
+    let today = new Date()
+    selectedDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
     
 })
 
@@ -84,6 +88,7 @@ function watchCalender(){
         const today = new Date()
         const month = today.getMonth() + 1 
         const searchDate = today.getFullYear() + '-' + month + '-' + selectedDay
+        selectedDate = searchDate
 
         const dropdown = document.getElementById('hole-select')
         const selectedOption = dropdown.options[dropdown.selectedIndex]
@@ -201,7 +206,7 @@ let clickTeeTime = async (ev) => {
     const selectedTeeTime = button.getAttribute('id')
     console.log(`tee sheet id: ${selectedTeeTime}`)
 
-    
+    const teeTime = button.querySelector('span:first-child').innerText
 
 
     const res = await fetch('/reserve',
@@ -209,7 +214,9 @@ let clickTeeTime = async (ev) => {
         method : "POST",
         body: JSON.stringify({
              teeSheetId : selectedTeeTime,
-             numPlayers : prevNumPlayers.innerText === 'Any' ? 4 : prevNumPlayers.innerText
+             numPlayers : prevNumPlayers.innerText === 'Any' ? 4 : prevNumPlayers.innerText,
+             teeTime: teeTime,
+             teeDate: selectedDate
             }),
         headers: {
             'Content-Type': 'application/json',
