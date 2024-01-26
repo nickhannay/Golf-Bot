@@ -60,26 +60,27 @@
                         <div style="border-bottom: 1px solid lightgray;height: calc(340px / 2);padding:1.5rem 2rem;box-sizing: border-box;display:flex; flex-direction:column; justify-content:space-between ;">
                             <div>
                                 <label style="float:left">
-                                    AD 18 HOLES WDOS
+                                    <%=priceDesc %>
                                 </label>
                                 <label style="float:right">
-                                    CA$**.** x <%=numPlayers%>
+                                    CA$<%=itemPrice%>.00 x <%=numPlayers%>
                                 </label>
                             </div>
                             <div>
                                 <label>Sub total</label>
-                                <label style="float:right">CA$**.**</label>
+                                <label style="float:right">CA$<%=subTotal%>.00</label>
                             </div>
                             <div>
                                 <label>Total tax</label>
-                                <label style="float:right">CA$**.**</label>
+                                <label style="float:right">CA$<%=totalTax%>0</label>
                             </div>
 
                         </div>
                         <div style="padding: 1.5rem 2rem;box-sizing: border-box;flex-direction: column;display: flex;justify-content: space-between;height:calc(340px / 2)">
+                            <% let grandTotal = subTotal + totalTax %>
                             <div>
                                 <label>Grand Total</label>
-                                <label style="float:right">CA$(sub total + tax)</label>
+                                <label style="float:right">CA$<%=grandTotal%>0</label>
                             </div>
                             <div>
                                 <label>Due Now</label>
@@ -87,7 +88,7 @@
                             </div>
                             <div>
                                 <label>Due at the Course</label>
-                                <label style="float:right">CA$(sub total + tax)</label>
+                                <label style="float:right">CA$<%=grandTotal %>0</label>
                             </div>
                         </div>
                     </div>

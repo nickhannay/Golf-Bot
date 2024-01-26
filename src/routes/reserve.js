@@ -17,28 +17,33 @@ router.post('/', (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-    const teeSheetId = req.query.teeSheetId
-    debug(teeSheetId)
-    debug(`num players: ${req.query.numPlayers}`)
+    let teeSheetId = req.query.teeSheetId
+    const numPlayers = req.query.numPlayers
 
     const timeSlices = req.query.teeTime.split(' ')
     const teeTime = `${timeSlices[0]} ${timeSlices[1].toUpperCase()}`
     const teeDate = convertTeeDate(req.query.teeDate) 
     const golferId = req.session.golferId
     const acctNum = req.session.account
+    const token = req.session.token
 
-
-    const priceSummary = await GOLF_BOT.calculatePrice(teeSheetId, req.session.token, golferId, acctNum)
-    console.log(JSON.stringify(priceSummary))
+    teeSheetId = parseInt(teeSheetId, 10)
+    debug(teeSheetId)
+    const priceSummary = await GOLF_BOT.calculatePrice(teeSheetId, token, golferId, acctNum, numPlayers)
+    console.log(JSON.stringify(priceSummary, null, 2))
 
     
 
     const template_params = {
         teeSheetId : teeSheetId, 
         fullName: req.session.fullName, 
-        numPlayers: req.query.numPlayers,
+        numPlayers: numPlayers,
         teeTime: teeTime,
-        teeDate: teeDate
+        teeDate: teeDate,
+        subTotal: priceSummary.shItemPricesGroup[0].extendedPrice,
+        totalTax: priceSummary.shItemPricesGroup[0].taxAmount,
+        itemPrice: priceSummary.shItemPricesGroup[0].price,
+        priceDesc: priceSummary.shItemPricesGroup[0].itemDesc
     }
     res.render('reserve', template_params)
 })

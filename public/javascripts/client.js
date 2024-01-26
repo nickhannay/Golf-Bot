@@ -159,6 +159,7 @@ function updateTeeTimes(times){
 
                 const container = document.createElement('button')
                 container.setAttribute('id', time.teeSheetId)
+                console.log(time.teeSheetId)
                 container.classList.add('teetime-container')
                 container.innerHTML =   `
                                         <div class="teetime-TimeLabel">
