@@ -248,3 +248,7 @@ let focusPlayers = ((ev) => {
     newNumPlayers.classList.add('players-selected')
     prevNumPlayers = newNumPlayers
 })
+
+const reserveTeeTime = (() => {
+    console.log('Clicked reserve !')
+})
