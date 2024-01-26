@@ -24,8 +24,9 @@ router.post('/', async (req, res) => {
 
     const json = await GOLF_BOT.getUserInfo(token)
 
-    res.cookie('fullName', `${json.first_name} ${json.last_name}`)
-    res.cookie('GBT', `${token}`)
+    req.session.fullName = `${json.first_name} ${json.last_name}`
+    req.session.account = `${json.acct}`
+    req.session.golferId = `${json.golferId}`
     res.redirect('dashboard')
 
 

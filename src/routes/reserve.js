@@ -16,23 +16,26 @@ router.post('/', (req, res) => {
     res.json({redirect : '/reserve?' + new URLSearchParams(params)})
 })
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const teeSheetId = req.query.teeSheetId
     debug(teeSheetId)
     debug(`num players: ${req.query.numPlayers}`)
 
     const timeSlices = req.query.teeTime.split(' ')
     const teeTime = `${timeSlices[0]} ${timeSlices[1].toUpperCase()}`
-    const teeDate = convertTeeDate(req.query.teeDate)
+    const teeDate = convertTeeDate(req.query.teeDate) 
+    const golferId = req.session.golferId
+    const acctNum = req.session.account
 
 
-    GOLF_BOT.calculatePrice(teeSheetId)
+    const priceSummary = await GOLF_BOT.calculatePrice(teeSheetId, req.session.token, golferId, acctNum)
+    console.log(JSON.stringify(priceSummary))
 
     
 
     const template_params = {
         teeSheetId : teeSheetId, 
-        fullName: req.cookies.fullName, 
+        fullName: req.session.fullName, 
         numPlayers: req.query.numPlayers,
         teeTime: teeTime,
         teeDate: teeDate

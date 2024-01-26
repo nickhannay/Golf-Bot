@@ -77,6 +77,14 @@ class GOLF_BOT{
 
         return json
     }
+
+    static async calculatePrice(teeSheetId, token, golferId, acctNum){
+        const prices =  {
+            price: '30'
+        }
+        
+        return prices
+    }
 }
 
 
