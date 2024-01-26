@@ -136,6 +136,7 @@ function watchCalender(){
         })
 
         const times = await res.json()
+        console.log(times)
         updateTeeTimes(times)
     })
 
@@ -166,7 +167,8 @@ function updateTeeTimes(times){
                                             <span style="color:#C48A1C" class="start-hole">${time.courseName}</span>
                                         </div>
                                         <div class="teetime-footer">
-                                            ${time.holesDisplay} HOLES | ${time.playersDisplay}
+                                            <span>${time.holesDisplay} HOLES | ${time.playersDisplay}</span>
+                                            <span style="font-size:large;">CA$${time.shItemPrices[0].price}.00</span>
                                         </div>
                                         `
                 container.addEventListener('click', clickTeeTime)
