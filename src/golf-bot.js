@@ -79,11 +79,23 @@ class GOLF_BOT{
     }
 
     static async calculatePrice(teeSheetId, token, golferId, acctNum){
-        const prices =  {
-            price: '30'
+        const body = {
+            "selectedTeeSheetId": 57955,
+            "holes": 18,
+            "numberOfPlayer": 3,
+            "numberOfRider": 0,
+            "cartType": 0,
+            "coupon": null,
+            "depositType": 0,
+            "depositAmount": 0,
+            "selectedValuePackageCode": null,
+            "isUseCapacityPricing": false,
+            "thirdPartyId": null,
+            "ibxCardOnFile": null,
+            "transactionId": null
         }
-        
-        return prices
+
+        return body
     }
 }
 
