@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router() 
 const debug = require('debug')('golf-bot:server')
+const GOLF_BOT = require('../golf-bot.js')
 
 
 router.post('/', (req, res) => {
@@ -16,15 +17,21 @@ router.post('/', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    debug(req.query.teeSheetId)
+    const teeSheetId = req.query.teeSheetId
+    debug(teeSheetId)
     debug(`num players: ${req.query.numPlayers}`)
 
     const timeSlices = req.query.teeTime.split(' ')
     const teeTime = `${timeSlices[0]} ${timeSlices[1].toUpperCase()}`
     const teeDate = convertTeeDate(req.query.teeDate)
 
+
+    GOLF_BOT.calculatePrice(teeSheetId)
+
+    
+
     const template_params = {
-        teeSheetId : req.query.teeSheetId, 
+        teeSheetId : teeSheetId, 
         fullName: req.cookies.fullName, 
         numPlayers: req.query.numPlayers,
         teeTime: teeTime,
