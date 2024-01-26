@@ -17,7 +17,6 @@ router.post('/', async (req, res) => {
 
     let token = null
     if(!req.session.hasOwnProperty('token') ){
-        console.log("DSFSf")
         token = await GOLF_BOT.getToken(email, password)
         req.session.token = token
     }
@@ -25,7 +24,9 @@ router.post('/', async (req, res) => {
 
     const json = await GOLF_BOT.getUserInfo(token)
 
-    res.cookie('fullName', `${json.first_name} ${json.last_name}`)
+    req.session.fullName = `${json.first_name} ${json.last_name}`
+    req.session.account = `${json.acct}`
+    req.session.golferId = `${json.golferId}`
     res.redirect('dashboard')
 
 

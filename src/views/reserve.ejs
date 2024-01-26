@@ -2,14 +2,99 @@
 <html lang="en-us">
     <%- include('partials/head') %>
     <body>
-        <div style="display:flex;justify-content: center;height: 100vh;width: 100%;background-color:grey">
-            <div id="reserve-content" style="width:50%; height:100%;display: flex;background: white;padding:2rem">
-                <div style="width: 70%;border: 1px solid lightgray;border-radius: 12px; height:50%">
-                    <div style="padding:0.5rem 0 0 2rem;">
-                        <h3>Customize your Reservation</h3>
-                        <h2>Full Name: <%=fullName %></h2>
+        <div id="reserve-full-page">
+            <div id="reserve-content">
+                <div id="left-side-players" class="info-box" style="width: 60%;">
+                    <div style="padding: 2rem;">
+                        <h3 style="margin:0;font-weight:300">Customize your Reservation</h3>
+                        <div style="font-size:1em ;color: rgba(114, 112, 112, 0.658);margin-top:5px">
+                            <span>Let us know who is playing with you below.</span>
+                        </div>
+                        <div id="customize-players">
+                            <% for(let i = 0; i < numPlayers; i++){ %>
+                                <div class="customize-cell">
+                                    <h3 class="customize-cell-label">Player <%=i + 1%> </h3>
+                                    <div class="customize-cell-content">
+                                        <%if (i === 0) { %>
+                                            <input class="customize-cell-input" type="text" value="<%= fullName%>" readonly="true" style="cursor: default">
+                                        <% } else {%>
+                                            <input class="customize-cell-input" type="text" placeholder="Rename Player <%=i + 1%>">
+                                        <% } %>
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
                     </div>
                 </div>
+                <div id="right-side-content">
+                    <div id="right-side-course-info" class="info-box">
+                        <div style="padding: 2rem;display:flex; flex-direction: column;">
+                            <h3 style="margin:0;font-weight:300; width:100%"><%=teeTime%>   |   <%=teeDate%></h3>
+                            <div style="margin-top: 1rem; min-height: 30%;height:30%">
+                                <label>Course</label>
+                                <div class="customize-cell-content" style="margin-top:5px;display: flex;align-items: center;justify-content: center;">
+                                    <span>Riverway Golf</span>
+                                </div>
+                            </div>
+                            <div style="min-height: 30%;margin-top:1rem;display: flex;justify-content: space-between;">
+                                <div id="holes-choice" style="width:40%">
+                                    <label>Holes</label>
+                                    <div class="customize-cell-content" style="margin-top:5px;display: flex;align-items: center;justify-content: center;">
+                                        <span>18</span>
+                                    </div>
+                                </div>
+                                <div id="players-choice" style="width:40%">
+                                    <label>Players</label>
+                                    <div class="customize-cell-content" style="margin-top:5px;display: flex;align-items: center;justify-content: center;">
+                                        <span><%= numPlayers%></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-box" style="margin-top:0.8rem; height:400px; overflow: hidden; display: flex;flex-direction: column;">
+                        <div style="height:fit-content;padding:2rem 2rem 0.5rem 2rem;border-bottom: 1px solid lightgray">
+                            <label style="float: left;margin:0;font-weight: 300">Price Summary</label>
+                            <label style="float:right;margin:0;font-weight: 300">Price</label>
+                        </div>
+                        <div style="border-bottom: 1px solid lightgray;height: calc(340px / 2);padding:1.5rem 2rem;box-sizing: border-box;display:flex; flex-direction:column; justify-content:space-between ;">
+                            <div>
+                                <label style="float:left">
+                                    <%=priceDesc %>
+                                </label>
+                                <label style="float:right">
+                                    CA$<%=itemPrice%>.00 x <%=numPlayers%>
+                                </label>
+                            </div>
+                            <div>
+                                <label>Sub total</label>
+                                <label style="float:right">CA$<%=subTotal%>.00</label>
+                            </div>
+                            <div>
+                                <label>Total tax</label>
+                                <label style="float:right">CA$<%=totalTax%>0</label>
+                            </div>
+
+                        </div>
+                        <div style="padding: 1.5rem 2rem;box-sizing: border-box;flex-direction: column;display: flex;justify-content: space-between;height:calc(340px / 2)">
+                            <% let grandTotal = subTotal + totalTax %>
+                            <div>
+                                <label>Grand Total</label>
+                                <label style="float:right">CA$<%=grandTotal%>0</label>
+                            </div>
+                            <div>
+                                <label>Due Now</label>
+                                <label style="float:right">CA$0.00</label>
+                            </div>
+                            <div>
+                                <label>Due at the Course</label>
+                                <label style="float:right">CA$<%=grandTotal %>0</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
             </div>
             
         </div>

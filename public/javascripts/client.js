@@ -10,12 +10,14 @@ pageReady(() => {
 
 
 let previousDate = null
+let selectedDate = null
 document.addEventListener('DOMContentLoaded', () => {
     createCalender()
 
-    focusDefaultPlayers()
-
     watchCalender()
+
+    let today = new Date()
+    selectedDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
     
 })
 
@@ -23,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function createCalender(){
     let today = new Date();
-    let month_offset = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
+    let firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
     let calender = document.getElementById('cal-dates')
     let daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()
 
@@ -45,10 +47,10 @@ function createCalender(){
 
 
     // start 1st of month on proper day of week
-    for (let i = 0; i < month_offset; i++){
+    for (let i = 0; i < firstOfMonth; i++){
         let day = document.createElement('div')
-        day.classList.add(['day', 'day-label'])
-        day.innerText = ""
+        day.classList.add("day")
+        day.classList.add("day-label")
         calender.appendChild(day)
     }
 
@@ -70,16 +72,17 @@ function createCalender(){
 }
 
 
-function focusDefaultPlayers(){
-    let defaultPlayers = document.getElementById('default-players')
-    defaultPlayers.classList.add('players-selected')
-}
-
 
 function watchCalender(){
     const cal = document.getElementById('cal-dates')
 
     cal.addEventListener('click', async (ev) => {
+
+        // disable clicks for day labels
+        if(ev.target.classList.contains('day-label') || ev.target.classList.contains('previous-day')){
+            return
+        }
+
         // remove styling from previous date
         previousDate.classList.remove('calender-selected')
 
@@ -91,6 +94,7 @@ function watchCalender(){
         const today = new Date()
         const month = today.getMonth() + 1 
         const searchDate = today.getFullYear() + '-' + month + '-' + selectedDay
+        selectedDate = searchDate
 
         const dropdown = document.getElementById('hole-select')
         const selectedOption = dropdown.options[dropdown.selectedIndex]
@@ -132,6 +136,7 @@ function watchCalender(){
         })
 
         const times = await res.json()
+        console.log(times)
         updateTeeTimes(times)
     })
 
@@ -154,6 +159,7 @@ function updateTeeTimes(times){
 
                 const container = document.createElement('button')
                 container.setAttribute('id', time.teeSheetId)
+                console.log(time.teeSheetId)
                 container.classList.add('teetime-container')
                 container.innerHTML =   `
                                         <div class="teetime-TimeLabel">
@@ -162,7 +168,8 @@ function updateTeeTimes(times){
                                             <span style="color:#C48A1C" class="start-hole">${time.courseName}</span>
                                         </div>
                                         <div class="teetime-footer">
-                                            ${time.holesDisplay} HOLES | ${time.playersDisplay}
+                                            <span>${time.holesDisplay} HOLES | ${time.playersDisplay}</span>
+                                            <span style="font-size:large;">CA$${time.shItemPrices[0].price}.00</span>
                                         </div>
                                         `
                 container.addEventListener('click', clickTeeTime)
@@ -208,11 +215,18 @@ let clickTeeTime = async (ev) => {
     const selectedTeeTime = button.getAttribute('id')
     console.log(`tee sheet id: ${selectedTeeTime}`)
 
+    const teeTime = button.querySelector('span:first-child').innerText
+
 
     const res = await fetch('/reserve',
     {
         method : "POST",
-        body: JSON.stringify({ teeSheetId : selectedTeeTime}),
+        body: JSON.stringify({
+             teeSheetId : selectedTeeTime,
+             numPlayers : prevNumPlayers.innerText === 'Any' ? 4 : prevNumPlayers.innerText,
+             teeTime: teeTime,
+             teeDate: selectedDate
+            }),
         headers: {
             'Content-Type': 'application/json',
         }
@@ -223,3 +237,14 @@ let clickTeeTime = async (ev) => {
         window.location.href = json.redirect
     }
 }
+
+
+let prevNumPlayers = document.getElementById('any-players');
+// num players selection toggle
+let focusPlayers = ((ev) => {
+    prevNumPlayers.classList.remove('players-selected')
+
+    const newNumPlayers = ev.target.closest('.num-players-toggle')
+    newNumPlayers.classList.add('players-selected')
+    prevNumPlayers = newNumPlayers
+})
