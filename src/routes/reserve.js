@@ -5,15 +5,10 @@ const GOLF_BOT = require('../golf-bot.js')
 
 
 router.post('/', (req, res) => {
-    debug(`Time: ${req.body.teeTime} - Date: ${req.body.teeDate}`)
-    const params = {
-        teeSheetId : req.body.teeSheetId,
-        numPlayers : req.body.numPlayers,
-        teeTime: req.body.teeTime,
-        teeDate: req.body.teeDate
-    }
+    const reserveObject = req.body
+    debug(`storing <\n ${JSON.stringify(reserveObject)}\n>`)
 
-    res.json({redirect : '/reserve?' + new URLSearchParams(params)})
+    res.json({redirect: '/dashboard'})
 })
 
 router.get('/', async (req, res) => {
@@ -70,10 +65,6 @@ function convertTeeDate(date){
     const year = dateSlices[0]
     const month = months[dateSlices[1] - 1 ]
     const day = dateSlices[2]
-
-
-    
-
 
     return `${month} ${day}, ${year}`
 

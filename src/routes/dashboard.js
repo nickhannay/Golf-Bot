@@ -14,6 +14,18 @@ router.get('/', async (req, res, next) => {
     res.render('dashboard', {teetimes: times})
 });
 
+router.post('/', (req, res) => {
+    debug(`Time: ${req.body.teeTime} - Date: ${req.body.teeDate}`)
+    const params = {
+        teeSheetId : req.body.teeSheetId,
+        numPlayers : req.body.numPlayers,
+        teeTime: req.body.teeTime,
+        teeDate: req.body.teeDate
+    }
+
+    res.json({redirect : '/reserve?' + new URLSearchParams(params)})
+})
+
 
 
 

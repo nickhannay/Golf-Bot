@@ -25,7 +25,7 @@ class GOLF_BOT{
 
 
 
-    static async getTeeTimes(date, token = 'null', holes = '0', players = '0'){
+    static async getTeeTimes(date, holes = '0', players = '0', token = 'null'){
 
         let params = {
             searchDate: date,
