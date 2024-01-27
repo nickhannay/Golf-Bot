@@ -46,7 +46,7 @@
                                 <div id="players-choice" style="width:40%">
                                     <label>Players</label>
                                     <div class="customize-cell-content" style="margin-top:5px;display: flex;align-items: center;justify-content: center;">
-                                        <span><%= numPlayers%></span>
+                                        <span id="num-players-selected"><%= numPlayers%></span>
                                     </div>
                                 </div>
                             </div>
@@ -92,9 +92,11 @@
                             </div>
                         </div>
                     </div>
+
+                    <button onclick="reserveTeeTime()">
+                        Reserve Tee Time
+                    </button>
                 </div>
-                
-                
             </div>
             
         </div>

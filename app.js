@@ -3,12 +3,13 @@ const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const session = require('express-session')
-
+const fs = require('fs')
 
 const indexRouter = require('./src/routes/index');
 const dashboardRouter = require('./src/routes/dashboard');
 const reserveRouter = require('./src/routes/reserve');
 const cookieParser = require('cookie-parser');
+const { strict } = require('assert');
 
 const app = express();
 
@@ -24,12 +25,15 @@ app.use(cors());
 
 
 
-
-
+const key = fs.readFileSync(path.join(__dirname, 'src', 'bin', 'certs', 'localhost+2.pem'))
 app.use(session({
     resave: false,
-    secret: 'test',
-    saveUninitialized: true
+    secret: key.toString(),
+    saveUninitialized: true,
+    cookie: {
+        secure: true,
+        sameSite: true
+    }
 }))
 
 app.use(cookieParser())

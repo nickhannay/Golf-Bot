@@ -214,11 +214,12 @@ let clickTeeTime = async (ev) => {
     const button = ev.target.closest('.teetime-container');
     const selectedTeeTime = button.getAttribute('id')
     console.log(`tee sheet id: ${selectedTeeTime}`)
+    window.sessionStorage.setItem('teeSheetId', selectedTeeTime)
 
     const teeTime = button.querySelector('span:first-child').innerText
 
 
-    const res = await fetch('/reserve',
+    const res = await fetch('/dashboard',
     {
         method : "POST",
         body: JSON.stringify({
@@ -247,4 +248,33 @@ let focusPlayers = ((ev) => {
     const newNumPlayers = ev.target.closest('.num-players-toggle')
     newNumPlayers.classList.add('players-selected')
     prevNumPlayers = newNumPlayers
+})
+
+const reserveTeeTime = (async () => {
+    
+    const teeSheetId = window.sessionStorage.getItem('teeSheetId')
+    console.log(`reserving ${teeSheetId}`)
+
+    const numPlayers = document.getElementById('num-players-selected').innerText
+    
+    const reserveObject = {
+        teeSheetId: teeSheetId,
+        numGolfers: numPlayers
+    }
+
+
+    const res = await fetch('/reserve', {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(reserveObject)
+    })
+
+    const json = await res.json()
+
+    console.log(json)
+    window.location.href = json.redirect
+
+
 })
