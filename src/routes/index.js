@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
     }
     
 
-    const json = await GOLF_BOT.getUserInfo(token)
+    const json = await GOLF_BOT.getUserInfo(req.session.token)
 
     req.session.fullName = `${json.first_name} ${json.last_name}`
     req.session.account = `${json.acct}`
