@@ -7,6 +7,7 @@
     "test": "set DEBUG=golf-bot:server && nodemon ./src/bin/www"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.501.0",
     "connect-redis": "^7.1.1",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
@@ -20,5 +21,6 @@
     "puppeteer": "^21.7.0",
     "redis": "^4.6.12",
     "serve-favicon": "^2.5.0"
-  }
+  },
+  "type" : "commonjs"
 }
