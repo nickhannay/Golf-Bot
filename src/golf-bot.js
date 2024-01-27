@@ -25,7 +25,7 @@ class GOLF_BOT{
 
 
 
-    static async getTeeTimes(date, token = 'null', holes = '0', players = '0'){
+    static async getTeeTimes(date, holes = '0', players = '0', token = 'null'){
 
         let params = {
             searchDate: date,
@@ -81,7 +81,7 @@ class GOLF_BOT{
         for(let i = 0; i < numGolfers; i++){
             golfers[i] = this.#createGolfer(teeSheetId, i + 1, golferId, acctNum)
         }
-        debug('inside calcPrince: ' + typeof teeSheetId)
+        
         const body = {
             "selectedTeeSheetId": teeSheetId,
             "holes": 18,

@@ -27,6 +27,8 @@ router.post('/', async (req, res) => {
     req.session.fullName = `${json.first_name} ${json.last_name}`
     req.session.account = `${json.acct}`
     req.session.golferId = `${json.golferId}`
+    req.session.email = `${email}`
+    req.session.pass = `${password}`
     res.redirect('dashboard')
 
 
