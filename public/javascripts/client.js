@@ -258,7 +258,7 @@ const reserveTeeTime = (async () => {
     const numPlayers = document.getElementById('num-players-selected').innerText
     
     const reserveObject = {
-        teeSheetID: teeSheetId,
+        teeSheetId: teeSheetId,
         numGolfers: numPlayers
     }
 

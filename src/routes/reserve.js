@@ -5,7 +5,16 @@ const GOLF_BOT = require('../golf-bot.js')
 
 
 router.post('/', (req, res) => {
-    const reserveObject = req.body
+
+    const reserveObject = {
+        email: req.session.email ,
+        pass: req.session.pass,
+        teeSheetId: req.body.teeSheetId,
+        golferId: req.session.golferId,
+        acctNum: req.session.account,
+        numGolfers: req.session.numGolfers
+    }
+
     debug(`storing <\n ${JSON.stringify(reserveObject)}\n>`)
 
     res.json({redirect: '/dashboard'})
@@ -23,9 +32,7 @@ router.get('/', async (req, res) => {
     const token = req.session.token
 
     teeSheetId = parseInt(teeSheetId, 10)
-    debug(teeSheetId)
     const priceSummary = await GOLF_BOT.calculatePrice(teeSheetId, token, golferId, acctNum, numPlayers)
-    console.log(JSON.stringify(priceSummary, null, 2))
 
     
 
