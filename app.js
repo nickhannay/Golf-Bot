@@ -4,13 +4,12 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const session = require('express-session')
 const fs = require('fs')
-const redis = require('redis')
-const RedisStore = require('connect-redis').default
+const redisStore = require('./src/bin/redis-config')
 
 const indexRouter = require('./src/routes/index');
 const dashboardRouter = require('./src/routes/dashboard');
 const reserveRouter = require('./src/routes/reserve');
-const cookieParser = require('cookie-parser');const { hostname } = require('os');
+const cookieParser = require('cookie-parser');
 
 
 const app = express();
@@ -25,21 +24,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-const redisClient = redis.createClient({
-    password: 'FLE7YmHfK4pdT5H768VKCr012Sti8ynI',
-    socket: {
-        port:  11358,
-        host: 'redis-11358.c289.us-west-1-2.ec2.cloud.redislabs.com' 
-    }
-})
 
-redisClient.connect().catch(console.error)
 
-const redisStore = new RedisStore({
-    client: redisClient,
-    prefix: "Golf-Bot",
-    ttl: 3600
-})
 
 const key = fs.readFileSync(path.join(__dirname, 'src', 'bin', 'certs', 'localhost+2.pem'))
 app.use(session({
@@ -72,6 +58,8 @@ app.use((req, res ,next) => {
 // Protected Routes
 app.use('/dashboard', dashboardRouter);
 app.use('/reserve', reserveRouter)
+
+
 
 
 
