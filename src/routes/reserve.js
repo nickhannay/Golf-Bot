@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router() 
 const debug = require('debug')('golf-bot:server')
-const GOLF_BOT = require('../golf-bot.js')
+const GOLF_BOT = require('../bin/golf-bot.js')
 
 
 router.post('/', (req, res) => {
@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
 
     teeSheetId = parseInt(teeSheetId, 10)
     const priceSummary = await GOLF_BOT.calculatePrice(teeSheetId, token, golferId, acctNum, numPlayers)
-
+    debug(JSON.stringify(priceSummary))
     
 
     const template_params = {

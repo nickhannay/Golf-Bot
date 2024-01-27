@@ -6,7 +6,7 @@ const https = require('https');
 const fs = require('fs')
 const path = require('path')
 
-const DEFAULT_PORT = 8088
+const DEFAULT_PORT = 443
 
 const port = process.env.PORT || DEFAULT_PORT;
 app.set('port', port);

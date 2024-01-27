@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const debug = require('debug')('golf-bot:server');
-const GOLF_BOT = require('../golf-bot');
+const GOLF_BOT = require('../bin/golf-bot.js');
 
 
 router.get('/', function(req, res, next) {
@@ -20,8 +20,6 @@ router.post('/', async (req, res) => {
         token = await GOLF_BOT.getToken(email, password)
         req.session.token = token
     }
-    
-
     const json = await GOLF_BOT.getUserInfo(req.session.token)
 
     req.session.fullName = `${json.first_name} ${json.last_name}`

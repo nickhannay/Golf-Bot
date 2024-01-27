@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer')
 
 
-async function main(){
+async function getSessionId(){
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -21,5 +21,6 @@ async function main(){
     await browser.close()
 }
 
-main();
+const sessionObject = getSessionId()
 
+module.exports - sessionObjects
