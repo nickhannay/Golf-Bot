@@ -5,6 +5,7 @@ const favicon = require('serve-favicon');
 const session = require('express-session')
 const fs = require('fs')
 const redisStore = require('./src/bin/redis-config')
+const debug = require('debug')('golf-bot:app')
 
 const indexRouter = require('./src/routes/index');
 const dashboardRouter = require('./src/routes/dashboard');
@@ -42,6 +43,9 @@ app.use(session({
 }))
 
 app.use(cookieParser())
+
+
+
 
 
 app.use('/', indexRouter);

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router() 
-const debug = require('debug')('golf-bot:server')
+const debug = require('debug')('golf-bot:reserve-route')
 const GOLF_BOT = require('../bin/golf-bot.js')
 const {DynamoDBClient, PutItemCommand} = require('@aws-sdk/client-dynamodb')
 

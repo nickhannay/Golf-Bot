@@ -92,7 +92,7 @@ function watchCalender(){
         
         const selectedDay = selection.innerText
         const today = new Date()
-        const month = today.getMonth() + 1 
+        const month = today.getMonth() + 1
         const searchDate = today.getFullYear() + '-' + month + '-' + selectedDay
         selectedDate = searchDate
 
@@ -100,6 +100,8 @@ function watchCalender(){
         const selectedOption = dropdown.options[dropdown.selectedIndex]
 
         const holes = selectedOption.innerText === 'Any' ? '0' : selectedOption.innerText.slice(0,2)
+
+        console.log(searchDate)
         
 
         const params = {

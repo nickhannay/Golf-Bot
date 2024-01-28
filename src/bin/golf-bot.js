@@ -1,4 +1,4 @@
-const debug = require('debug')('golf-bot:server')
+const debug = require('debug')('golf-bot:Golf-Bot')
 
 class GOLF_BOT{
     

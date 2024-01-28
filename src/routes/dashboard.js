@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const GOLF_BOT = require('../bin/golf-bot.js')
-const debug = require('debug')('golf-bot:server')
+const debug = require('debug')('golf-bot:dashboard-route')
 
 // render dashboard
 router.get('/', async (req, res, next) => {
