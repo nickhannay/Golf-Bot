@@ -58,14 +58,12 @@ class GOLF_BOT{
 
     static async getUserInfo(token){
         const headers = this.#createHeader(token)
-        debug(JSON.stringify(headers, null, 2))
 
         const res = await fetch('https://golfburnaby.cps.golf/identityapi/connect/userinfo', {
             headers: headers
         })
         
         const json = await res.json()
-        debug('user info: ' + JSON.stringify(json))
         
 
         return json

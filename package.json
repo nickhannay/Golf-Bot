@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./src/bin/www",
-    "test": "set DEBUG=* && nodemon ./src/bin/www"
+    "test": "set DEBUG=golf-bot:* && nodemon ./src/bin/www"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.501.0",
