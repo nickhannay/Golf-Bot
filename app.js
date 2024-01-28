@@ -12,8 +12,6 @@ const dashboardRouter = require('./src/routes/dashboard');
 const reserveRouter = require('./src/routes/reserve');
 const cookieParser = require('cookie-parser');
 
-
-
 const app = express();
 
 
