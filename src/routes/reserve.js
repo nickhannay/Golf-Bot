@@ -24,7 +24,8 @@ router.post('/', (req, res) => {
         TableName: 'GolfBot-Reservations',
         Item : {
             golferId : { 'S': reserveObject.golferId.toString()},
-            reserveDate: {'S' : 'Date PlaceHolder'}
+            reserveDate: {'S' : 'Date PlaceHolder'},
+            teeSheetId : {'S' : reserveObject.teeSheetId.toString()}
         }
     }
 
