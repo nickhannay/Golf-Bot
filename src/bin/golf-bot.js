@@ -62,6 +62,10 @@ class GOLF_BOT{
         const res = await fetch('https://golfburnaby.cps.golf/identityapi/connect/userinfo', {
             headers: headers
         })
+
+        debug(`Headers: \n%O`, headers)
+
+        debug('Response: \n%O', res)
         
         const json = await res.json()
         

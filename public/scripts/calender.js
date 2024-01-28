@@ -4,7 +4,7 @@ let today = new Date()
 selectedDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
 
 
-function createCalender(){
+const createCalender = () => {
     let today = new Date();
     let firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
     let calender = document.getElementById('cal-dates')
@@ -54,7 +54,7 @@ function createCalender(){
 
 
 
-function watchCalender(){
+const watchCalender = () => {
     const cal = document.getElementById('cal-dates')
 
     cal.addEventListener('click', async (ev) => {
@@ -119,8 +119,16 @@ function watchCalender(){
         })
 
         const times = await res.json()
-        console.log(times)
-        updateTeeTimes(times)
+        
+        const updateTeeTimesEvent = new CustomEvent('updateTeeTimes', {detail : {times}})
+        document.dispatchEvent(updateTeeTimesEvent)
     })
 
 }
+
+const getSelectedDate = () => {
+    return selectedDate
+}
+
+
+module.exports = {createCalender, watchCalender, getSelectedDate}

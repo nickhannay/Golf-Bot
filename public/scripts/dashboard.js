@@ -1,10 +1,16 @@
-
+const utils = require('./utils.js')
+const cal = require('./calender.js')
 
 document.addEventListener('DOMContentLoaded', () => {
-    createCalender()
+    cal.createCalender()
 
-    watchCalender()
+    cal.watchCalender()
 
+
+    document.addEventListener('updateTeeTimes', (event) => {
+        console.log(event.detail.times)
+        updateTeeTimes(event.detail.times)
+    })
     watchPlayerToggle()
 })
 
@@ -21,7 +27,7 @@ function updateTeeTimes(times){
             row.classList.add('teetime-row')
 
             sub_times.forEach((time) => {
-                const teeTime = convert12hr(time.startTime)
+                const teeTime = utils.convert12hr(time.startTime)
                 console.log(teeTime)
 
                 const container = document.createElement('button')
@@ -57,25 +63,6 @@ function updateTeeTimes(times){
 }
 
 
-function convert12hr(timeStamp){
-    // time : year-month-dayThour:minute:second
-    const time24hr = timeStamp.split('T')[1]
-
-    const hour_int = parseInt(time24hr.split(':')[0], 10)
-    const minute = time24hr.split(':')[1]
-    let am_pm = 'am'
-    let hour12 = ''
-
-    if(hour_int <= 12){
-        hour12 = hour_int.toString()
-    }
-    else {
-        hour12 = (hour_int % 12 ).toString()
-        am_pm = 'pm'
-    }
-
-    return `${hour12}:${minute} ${am_pm}`
-}
 
 
 let clickTeeTime = async (ev) => {
@@ -85,6 +72,9 @@ let clickTeeTime = async (ev) => {
     window.sessionStorage.setItem('teeSheetId', selectedTeeTime)
 
     const teeTime = button.querySelector('span:first-child').innerText
+
+    const selectedDate = cal.getSelectedDate()
+    console.log(`selected date: ${selectedDate}`)
 
 
     const res = await fetch('/dashboard',
