@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     watchCalender()
 
     watchPlayerToggle()
-
-    watchTeeTimes()
 })
 
 
@@ -120,6 +118,3 @@ function watchPlayerToggle(){
     })
 }
 
-function watchTeeTimes(){
-    document.getElementById('tee')
-}
