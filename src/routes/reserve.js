@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router() 
 const debug = require('debug')('golf-bot:server')
 const GOLF_BOT = require('../bin/golf-bot.js')
+const {DynamoDBClient, PutItemCommand} = require('@aws-sdk/client-dynamodb')
 
 
 router.post('/', (req, res) => {
@@ -16,6 +17,26 @@ router.post('/', (req, res) => {
     }
 
     debug(`storing <\n ${JSON.stringify(reserveObject)}\n>`)
+
+    const client  = new DynamoDBClient()
+
+    const params = {
+        TableName: 'GolfBot-Reservations',
+        Item : {
+            golferId : { 'S': reserveObject.golferId.toString()},
+            reserveDate: {'S' : 'Date PlaceHolder'}
+        }
+    }
+
+    const command = new PutItemCommand(params)
+
+    client.send(command)
+    .then( data => {
+        debug(`Successfully added reservation to DB ${JSON.stringify(data)}`)
+    }).catch( err =>{
+        debug(`Error adding to DB :\n${err}`)
+    })
+
 
     res.json({redirect: '/dashboard'})
 })
