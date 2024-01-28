@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     watchCalender()
 
     watchPlayerToggle()
+
+    watchTeeTimes()
 })
 
 
@@ -116,4 +118,8 @@ function watchPlayerToggle(){
         newNumPlayers.classList.add('players-selected')
         prevNumPlayers = newNumPlayers
     })
+}
+
+function watchTeeTimes(){
+    document.getElementById('tee')
 }
