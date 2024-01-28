@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', () => {
     createCalender()
 
@@ -20,6 +22,7 @@ function updateTeeTimes(times){
 
             sub_times.forEach((time) => {
                 const teeTime = convert12hr(time.startTime)
+                console.log(teeTime)
 
                 const container = document.createElement('button')
                 container.setAttribute('id', time.teeSheetId)
@@ -74,6 +77,7 @@ function convert12hr(timeStamp){
     return `${hour12}:${minute} ${am_pm}`
 }
 
+
 let clickTeeTime = async (ev) => {
     const button = ev.target.closest('.teetime-container');
     const selectedTeeTime = button.getAttribute('id')
@@ -102,6 +106,8 @@ let clickTeeTime = async (ev) => {
         window.location.href = json.redirect
     }
 }
+
+
 
 let prevNumPlayers = document.getElementById('any-players');
 function watchPlayerToggle(){

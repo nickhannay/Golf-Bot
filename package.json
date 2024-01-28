@@ -21,6 +21,5 @@
     "puppeteer": "^21.7.0",
     "redis": "^4.6.12",
     "serve-favicon": "^2.5.0"
-  },
-  "type" : "commonjs"
+  }
 }

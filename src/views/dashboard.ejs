@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
-    <%- include('partials/head') %>
+<%- include('partials/head') %>
+
     <body>
         <div id="left-navbar">
             <h5 id="calender-label">Date</h5>
@@ -26,7 +27,7 @@
                 <button id="2-players" class="num-players-toggle">
                     2
                 </button>
-                <button id="3-players" class="num-players-toggle" >
+                <button id="3-players" class="num-players-toggle">
                     3
                 </button>
                 <button id="4-players" class="num-players-toggle">
@@ -50,49 +51,64 @@
         <!--  -->
         <div id="right-teetimes">
             <% if (Array.isArray(teetimes)) { %>
-                <% let index = 0 %>
-                <% while (index < teetimes.length) { %>
-                    <% if (index % 4 === 0) { %>
-                        <div class="teetime-row">
-                    <% } %>
-                            <%const time24hr = teetimes[index].startTime.split('T')[1]  %>
-                            <% const hour_int = parseInt(time24hr.split(':')[0], 10) %>
-                            <% const minute = time24hr.split(':')[1] %>
-                            <% let am_pm = 'am' %>
-                            <% let hour12 = '' %>
-                            <%  if(hour_int <= 12){%>
-                            <%  hour12 = hour_int.toString()%>
-                            <%  } else {%>
-                            <% hour12 = (hour_int % 12 ).toString()  %>
-                            <%  am_pm = 'pm'%>
-                            <%  }%>
-                            <%  const convertedTime = `${hour12}:${minute} ${am_pm}`%>
-                            <button class="teetime-container" onclick="clickTeeTime(event)">
-                                <div class="teetime-TimeLabel">
-                                    <span style="margin-bottom: 1.5rem"><%= convertedTime %></span>
-                                    <span class="start-hole">Tee <%= teetimes[index].startingTee %> </span>
-                                    <span style="color:#C48A1C" class="start-hole"><%=teetimes[index].courseName %></span>
-                                </div>
-                                <div class="teetime-footer">
-                                    <%= teetimes[index].holesDisplay %> HOLES | <%= teetimes[index].playersDisplay %>
-                                </div>
-                            </button>
-                    <% if (index % 4 === 3) {%>
-                        </div>
-                    <% } %>
-                    <% index++ %>
-                <% } %>
+                <% let index=0 %>
+                    <% while (index < teetimes.length) { %>
+                        <% if (index % 4===0) { %>
+                            <div class="teetime-row">
+                                <% } %>
+                                    <%const time24hr=teetimes[index].startTime.split('T')[1] %>
+                                        <% const hour_int=parseInt(time24hr.split(':')[0], 10) %>
+                                            <% const minute=time24hr.split(':')[1] %>
+                                                <% let am_pm='am' %>
+                                                    <% let hour12='' %>
+                                                        <% if(hour_int <=12){%>
+                                                            <% hour12=hour_int.toString()%>
+                                                                <% } else {%>
+                                                                    <% hour12=(hour_int % 12 ).toString() %>
+                                                                        <% am_pm='pm' %>
+                                                                            <% }%>
+                                                                                <% const
+                                                                                    convertedTime=`${hour12}:${minute}
+                                                                                    ${am_pm}`%>
+                                                                                    <button class="teetime-container"
+                                                                                        onclick="clickTeeTime(event)">
+                                                                                        <div class="teetime-TimeLabel">
+                                                                                            <span
+                                                                                                style="margin-bottom: 1.5rem">
+                                                                                                <%= convertedTime %>
+                                                                                            </span>
+                                                                                            <span class="start-hole">Tee
+                                                                                                <%= teetimes[index].startingTee
+                                                                                                    %> </span>
+                                                                                            <span style="color:#C48A1C"
+                                                                                                class="start-hole">
+                                                                                                <%=teetimes[index].courseName
+                                                                                                    %>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                        <div class="teetime-footer">
+                                                                                            <%= teetimes[index].holesDisplay
+                                                                                                %> HOLES | <%=
+                                                                                                    teetimes[index].playersDisplay
+                                                                                                    %>
+                                                                                        </div>
+                                                                                    </button>
+                                                                                    <% if (index % 4===3) {%>
+                            </div>
+                            <% } %>
+                                <% index++ %>
+                                    <% } %>
 
-                <% if (index % 4 !== 0) { %>
-                    </div>
-                <% } %>
+                                        <% if (index % 4 !==0) { %>
+        </div>
+        <% } %>
 
             <% } else { %>
                 <div class="missingTeeTimes"> <span>NO TEE TIMES AVAILABLE.</span></div>
-            <% } %>
-        </div>
-         
-        
+                <% } %>
+                    </div>
+
+
     </body>
     <script src="scripts/dashboard.js"></script>
     <script src="scripts/calender.js"></script>
