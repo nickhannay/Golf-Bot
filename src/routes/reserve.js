@@ -55,6 +55,14 @@ router.get('/', async (req, res) => {
     teeSheetId = parseInt(teeSheetId, 10)
     const priceSummary = await GOLF_BOT.calculatePrice(teeSheetId, token, golferId, acctNum, numPlayers)
     debug(JSON.stringify(priceSummary))
+
+    let subTotal = priceSummary.shItemPricesGroup[0].extendedPrice
+    let totalTax = priceSummary.shItemPricesGroup[0].taxAmount
+    let grandTotal = subTotal + totalTax
+
+    subTotal = formatPrice(subTotal)
+    totalTax = formatPrice(totalTax)
+    grandTotal = formatPrice(grandTotal)
     
 
     const template_params = {
@@ -63,13 +71,28 @@ router.get('/', async (req, res) => {
         numPlayers: numPlayers,
         teeTime: teeTime,
         teeDate: teeDate,
-        subTotal: priceSummary.shItemPricesGroup[0].extendedPrice,
-        totalTax: priceSummary.shItemPricesGroup[0].taxAmount,
+        subTotal: subTotal,
+        totalTax: totalTax,
         itemPrice: priceSummary.shItemPricesGroup[0].price,
-        priceDesc: priceSummary.shItemPricesGroup[0].itemDesc
+        priceDesc: priceSummary.shItemPricesGroup[0].itemDesc,
+        grandTotal : grandTotal
     }
     res.render('reserve', template_params)
 })
+
+
+
+function formatPrice(price){
+    let str = price.toString()
+
+    if(str.includes('.')){
+        return str + '0'
+    }
+    else{
+        return str + '.00'
+    }
+}
+
 
 
 function convertTeeDate(date){
