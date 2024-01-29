@@ -42,7 +42,7 @@ const createCalender = (date) => {
         day.classList.add('day')
 
 
-        console.log(`${date.getMonth()} --- ${today.getMonth()} --- ${date.getFullYear}`)
+        console.log(`${date.getMonth()} --- ${today.getMonth()} --- ${date.getFullYear()}`)
         if((i < date.getDate() && date.getMonth() <= today.getMonth() ) || date.getFullYear() < today.getFullYear()){
             day.classList.add('previous-day')
         }
@@ -112,7 +112,9 @@ const watchToggle = () => {
         document.getElementById('cal-dates').innerHTML = ''
         generateCalHeaders()
         createCalender(prevMonth)
-        console.log('prev month')
+
+        const updateTeeTimesEvent = new CustomEvent('updateTeeTimes', {detail : {selectedDate}})
+        document.dispatchEvent(updateTeeTimesEvent)
     })
 
     rightToggle.addEventListener('click', (event) => {
@@ -122,6 +124,9 @@ const watchToggle = () => {
         document.getElementById('cal-dates').innerHTML = ''
         generateCalHeaders()
         createCalender(nextMonth)
+        
+        const updateTeeTimesEvent = new CustomEvent('updateTeeTimes', {detail : {selectedDate}})
+        document.dispatchEvent(updateTeeTimesEvent)
 
     })
 }
@@ -141,7 +146,6 @@ const getPreviousMonth = () => {
 
 
 const generateCalHeaders = () => {
-    console.log('dfsdf')
     document.getElementById('cal-dates').innerHTML = `<div class="day day-label">SUN</div>
                                                       <div class="day day-label">MON</div>
                                                       <div class="day day-label">TUE</div>
