@@ -106,26 +106,29 @@ const watchToggle = () => {
     const leftToggle = document.getElementById('cal-toggle-left')
     const rightToggle = document.getElementById('cal-toggle-right')
 
-    leftToggle.addEventListener('click', (event) => {
+    leftToggle.addEventListener('click', async (event) => {
         // previous month - last day
         const prevMonth = getPreviousMonth()
         document.getElementById('cal-dates').innerHTML = ''
         generateCalHeaders()
         createCalender(prevMonth)
 
-        const updateTeeTimesEvent = new CustomEvent('updateTeeTimes', {detail : {selectedDate}})
+        const times = await GOLF_BOT.getTeeTimes(selectedDate)
+        const updateTeeTimesEvent = new CustomEvent('updateTeeTimes', {detail : {times}})
         document.dispatchEvent(updateTeeTimesEvent)
     })
 
-    rightToggle.addEventListener('click', (event) => {
+    rightToggle.addEventListener('click', async (event) => {
         // next month - first day
         console.log('next month')
         const nextMonth = getNextMonth()
         document.getElementById('cal-dates').innerHTML = ''
         generateCalHeaders()
         createCalender(nextMonth)
-        
-        const updateTeeTimesEvent = new CustomEvent('updateTeeTimes', {detail : {selectedDate}})
+
+        const times = await GOLF_BOT.getTeeTimes(selectedDate)
+
+        const updateTeeTimesEvent = new CustomEvent('updateTeeTimes', {detail : {times}})
         document.dispatchEvent(updateTeeTimesEvent)
 
     })
