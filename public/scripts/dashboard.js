@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     document.addEventListener('updateTeeTimes', (event) => {
-        console.log(event.detail.times)
         updateTeeTimes(event.detail.times)
     })
     watchPlayerToggle()

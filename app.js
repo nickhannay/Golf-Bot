@@ -4,7 +4,7 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const session = require('express-session')
 const fs = require('fs')
-const redisStore = require('./src/bin/redis-config')
+const redisStore = require('./src/redis-config')
 const debug = require('debug')('golf-bot:app')
 
 const indexRouter = require('./src/routes/index');

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const GOLF_BOT = require('../bin/golf-bot.js')
+const GOLF_BOT = require('../shared/golf-bot.js')
 const debug = require('debug')('golf-bot:dashboard-route')
 const utils = require('../shared/utils.js')
 

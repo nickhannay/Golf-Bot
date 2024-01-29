@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const debug = require('debug')('golf-bot:index-route');
-const GOLF_BOT = require('../bin/golf-bot.js');
+const GOLF_BOT = require('../shared/golf-bot.js');
 
 
 router.get('/', function(req, res, next) {

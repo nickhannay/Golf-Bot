@@ -42,8 +42,8 @@ const createCalender = (date) => {
         day.classList.add('day')
 
 
-        console.log(`${date.getMonth()} --- ${today.getMonth()}`)
-        if(i < date.getDate() && date.getMonth() <= today.getMonth()){
+        console.log(`${date.getMonth()} --- ${today.getMonth()} --- ${date.getFullYear}`)
+        if((i < date.getDate() && date.getMonth() <= today.getMonth() ) || date.getFullYear() < today.getFullYear()){
             day.classList.add('previous-day')
         }
 
@@ -78,7 +78,8 @@ const watchCalender = () => {
         
         const selectedDay = selection.innerText
         const selectedMonth = selectedDate.split('-')[1]
-        const searchDate = today.getFullYear() + '-' + selectedMonth + '-' + selectedDay
+        const selectedYear = selectedDate.split('-')[0]
+        const searchDate = selectedYear + '-' + selectedMonth + '-' + selectedDay
         selectedDate = searchDate
 
         const dropdown = document.getElementById('hole-select')
@@ -86,47 +87,10 @@ const watchCalender = () => {
 
         const holes = selectedOption.innerText === 'Any' ? '0' : selectedOption.innerText.slice(0,2)
 
-        console.log(searchDate)
+       
         
-
-        const params = {
-            searchDate: searchDate,
-            holes: holes,
-            numberOfPlayer: '0',
-            courseIds:'2',
-            searchTimeType:'0',
-            teeOffTimeMin:'0',
-            teeOffTimeMax:'23',
-            isChangeTeeOffTime:'true',
-            teeSheetSearchView:'5',
-            classCode:'R',
-            defaultOnlineRate:'N',
-            isUseCapacityPricing:'false',
-            memberStoreId:'1',
-            searchType:'1',
-        }
-        const res = await fetch('https://golfburnaby.cps.golf/onlineres/onlineapi/api/v1/onlinereservation/TeeTimes?' + new URLSearchParams(params),{
-            headers: {
-                'x-apiKey' : '8ea2914e-cac2-48a7-a3e5-e0f41350bf3a',
-                'x-componentId': '1',
-                'x-ismobile': 'false',
-                'x-productid': '1',
-                'x-requestid': '3a4e1ebb-4041-9595-8589-ec0aaf8ef193',
-                'x-siteid' : '1',
-                'X-TerminalId': '3',
-                'x-timezone-offset': '480',
-                'x-timezoneid':  'America/Vancouver',
-                'Referer': 'https://golfburnaby.cps.golf/onlineresweb/search-teetime?TeeOffTimeMin=0&TeeOffTimeMax=23.999722222222225',
-                'Host': 'golfburnaby.cps.golf',
-                'Authorization': `Bearer null`
-            }
-        })
+        const times = await GOLF_BOT.getTeeTimes(searchDate, holes)
         
-        const timeFromBot = await GOLF_BOT.getTeeTimes(searchDate, holes)
-        console.log(`times from bot: ${timeFromBot}`)
-
-        const times = await res.json()
-        console.log(`times: ${times}`)
         const updateTeeTimesEvent = new CustomEvent('updateTeeTimes', {detail : {times}})
         document.dispatchEvent(updateTeeTimesEvent)
     })
