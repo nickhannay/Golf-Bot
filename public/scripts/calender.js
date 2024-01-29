@@ -75,8 +75,8 @@ const watchCalender = () => {
         previousDate = selection
         
         const selectedDay = selection.innerText
-        const month = today.getMonth() + 1
-        const searchDate = today.getFullYear() + '-' + month + '-' + selectedDay
+        const selectedMonth = selectedDate.split('-')[1]
+        const searchDate = today.getFullYear() + '-' + selectedMonth + '-' + selectedDay
         selectedDate = searchDate
 
         const dropdown = document.getElementById('hole-select')
