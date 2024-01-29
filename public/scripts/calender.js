@@ -39,6 +39,8 @@ const createCalender = (date) => {
         let day = document.createElement('div')
         day.classList.add('day')
 
+
+        console.log(`${date.getMonth()} --- ${today.getMonth()}`)
         if(i < date.getDate() && date.getMonth() <= today.getMonth()){
             day.classList.add('previous-day')
         }
@@ -137,20 +139,47 @@ const watchToggle = () => {
 
     leftToggle.addEventListener('click', (event) => {
         // previous month - last day
-
+        const prevMonth = getPreviousMonth()
+        document.getElementById('cal-dates').innerHTML = ''
+        generateCalHeaders()
+        createCalender(prevMonth)
         console.log('prev month')
     })
 
     rightToggle.addEventListener('click', (event) => {
         // next month - first day
         console.log('next month')
-        const currentMonth = selectedDate.split('-')[1]
-        const nextMonth = new Date(selectedDate.split('-')[0], currentMonth, 1)
+        const nextMonth = getNextMonth()
         document.getElementById('cal-dates').innerHTML = ''
-        createCalender(nextMonth) 
+        generateCalHeaders()
+        createCalender(nextMonth)
 
     })
 }
 
+
+const getNextMonth = () => {
+    const currentMonth = selectedDate.split('-')[1]
+    const nextMonth = new Date(selectedDate.split('-')[0], currentMonth, 1)
+    return nextMonth
+}
+
+const getPreviousMonth = () => {
+    const currentMonth = selectedDate.split('-')[1]
+    const lastMonth = new Date(selectedDate.split('-')[0], currentMonth - 1, 0)
+    return lastMonth
+}
+
+
+const generateCalHeaders = () => {
+    console.log('dfsdf')
+    document.getElementById('cal-dates').innerHTML = `<div class="day day-label">SUN</div>
+                                                      <div class="day day-label">MON</div>
+                                                      <div class="day day-label">TUE</div>
+                                                      <div class="day day-label">WED</div>
+                                                      <div class="day day-label">THU</div>
+                                                      <div class="day day-label">FRI</div>
+                                                      <div class="day day-label">SAT</div>`
+}
 
 module.exports = {createCalender, watchCalender, getSelectedDate, watchToggle}
