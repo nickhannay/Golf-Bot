@@ -2,9 +2,12 @@ const utils = require('../../src/shared/utils.js')
 const cal = require('./calender.js')
 
 document.addEventListener('DOMContentLoaded', () => {
-    cal.createCalender()
+    const today = new Date()
+    cal.createCalender(today)
 
     cal.watchCalender()
+
+    cal.watchToggle()
 
 
     document.addEventListener('updateTeeTimes', (event) => {

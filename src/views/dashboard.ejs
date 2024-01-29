@@ -7,9 +7,9 @@
             <h5 id="calender-label">Date</h5>
             <div id="calender">
                 <div id="cal-header">
-                    <div style="visibility: hidden;">previous month</div>
+                    <div id="cal-toggle-left">previous month</div>
                     <div id="current-month"></div>
-                    <div style="visibility: hidden;">next month</div>
+                    <div id="cal-toggle-right"><img style="width:2rem;height:2rem;cursor: pointer"src="images/right.png"></div>
                 </div>
                 <div id="cal-dates">
                     <div class="day day-label">SUN</div>
@@ -52,40 +52,41 @@
         <div id="right-teetimes">
             <% if (availableTimes) { %>
                 <% let index=0 %>
-                <% while (index < teetimes.length) { %>
-                    <% if (index % 4===0) { %>
-                        <div class="teetime-row">
-                    <% } %>
-                                
-                    <button class="teetime-container" onclick="clickTeeTime(event)">
-                        <div class="teetime-TimeLabel">
-                            <span style="margin-bottom: 1.5rem">
-                                <%= teetimes[index].displayTime %>
-                            </span>
-                            <span class="start-hole">Tee
-                                <%= teetimes[index].startingTee %>
-                            </span>
-                            <span style="color:#C48A1C" class="start-hole">
-                                <%=teetimes[index].courseName %>
-                            </span>
-                        </div>
-                        <div class="teetime-footer">
-                            <%= teetimes[index].holesDisplay%> HOLES | <%=teetimes[index].playersDisplay%>
-                        </div>
-                    </button>
-                    <% if (index % 4===3) {%>
-                        </div>
-                    <% } %>
-                    <% index++ %>
-                <% } %>
+                    <% while (index < teetimes.length) { %>
+                        <% if (index % 4===0) { %>
+                            <div class="teetime-row">
+                                <% } %>
 
-                <% if (index % 4 !==0) { %>
-                    </div>
-                <% } %>
-            <% } else { %>
-                    <div class="missingTeeTimes"> <span>NO TEE TIMES AVAILABLE.</span></div>
-            <% } %>
+                                    <button class="teetime-container" onclick="clickTeeTime(event)">
+                                        <div class="teetime-TimeLabel">
+                                            <span style="margin-bottom: 1.5rem">
+                                                <%= teetimes[index].displayTime %>
+                                            </span>
+                                            <span class="start-hole">Tee
+                                                <%= teetimes[index].startingTee %>
+                                            </span>
+                                            <span style="color:#C48A1C" class="start-hole">
+                                                <%=teetimes[index].courseName %>
+                                            </span>
+                                        </div>
+                                        <div class="teetime-footer">
+                                            <%= teetimes[index].holesDisplay%> HOLES |
+                                                <%=teetimes[index].playersDisplay%>
+                                        </div>
+                                    </button>
+                                    <% if (index % 4===3) {%>
+                            </div>
+                            <% } %>
+                                <% index++ %>
+                                    <% } %>
+
+                                        <% if (index % 4 !==0) { %>
         </div>
+        <% } %>
+            <% } else { %>
+                <div class="missingTeeTimes"> <span>NO TEE TIMES AVAILABLE.</span></div>
+                <% } %>
+                    </div>
 
 
     </body>

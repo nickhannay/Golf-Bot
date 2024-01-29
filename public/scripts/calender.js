@@ -4,11 +4,11 @@ let today = new Date()
 selectedDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
 
 
-const createCalender = () => {
-    let today = new Date();
-    let firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
+// generates the dates for a given month of a given year and highlights the given day
+const createCalender = (date) => {
+    let firstOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
     let calender = document.getElementById('cal-dates')
-    let daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()
+    let daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
 
     const months = [
         'January',
@@ -24,7 +24,7 @@ const createCalender = () => {
         'November',
         'December'
     ];
-    document.getElementById('current-month').innerHTML = `${months[today.getMonth()]}  ${today.getFullYear()}`
+    document.getElementById('current-month').innerHTML = `${months[date.getMonth()]}  ${date.getFullYear()}`
 
 
     // start 1st of month on proper day of week
@@ -39,13 +39,14 @@ const createCalender = () => {
         let day = document.createElement('div')
         day.classList.add('day')
 
-        if(i < today.getDate()){
+        if(i < date.getDate() && date.getMonth() <= today.getMonth()){
             day.classList.add('previous-day')
         }
 
-        if(today.getDate() === i){
+        if(date.getDate() === i){
             day.classList.add('calender-selected')
             previousDate = day
+            selectedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
         }
         day.innerText = i
         calender.appendChild(day)
@@ -72,7 +73,6 @@ const watchCalender = () => {
         previousDate = selection
         
         const selectedDay = selection.innerText
-        const today = new Date()
         const month = today.getMonth() + 1
         const searchDate = today.getFullYear() + '-' + month + '-' + selectedDay
         selectedDate = searchDate
@@ -131,4 +131,26 @@ const getSelectedDate = () => {
 }
 
 
-module.exports = {createCalender, watchCalender, getSelectedDate}
+const watchToggle = () => {
+    const leftToggle = document.getElementById('cal-toggle-left')
+    const rightToggle = document.getElementById('cal-toggle-right')
+
+    leftToggle.addEventListener('click', (event) => {
+        // previous month - last day
+
+        console.log('prev month')
+    })
+
+    rightToggle.addEventListener('click', (event) => {
+        // next month - first day
+        console.log('next month')
+        const currentMonth = selectedDate.split('-')[1]
+        const nextMonth = new Date(selectedDate.split('-')[0], currentMonth, 1)
+        document.getElementById('cal-dates').innerHTML = ''
+        createCalender(nextMonth) 
+
+    })
+}
+
+
+module.exports = {createCalender, watchCalender, getSelectedDate, watchToggle}
