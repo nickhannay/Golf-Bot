@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./src/bin/www",
-    "test": "cross-env DEBUG=golf-bot:* nodemon ./src/bin/www"
+    "dev": "cross-env DEBUG=golf-bot:* nodemon ./src/bin/www",
+    "build": "browserify ./public/scripts/dashboard.js -o ./public/scripts/bundle.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.501.0",
