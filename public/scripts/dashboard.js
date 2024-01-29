@@ -1,4 +1,4 @@
-const utils = require('./utils.js')
+const utils = require('../../src/shared/utils.js')
 const cal = require('./calender.js')
 
 document.addEventListener('DOMContentLoaded', () => {
