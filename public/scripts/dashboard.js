@@ -2,13 +2,15 @@ const utils = require('../../src/shared/utils.js')
 const cal = require('./calender.js')
 
 document.addEventListener('DOMContentLoaded', () => {
-    cal.createCalender()
+    const today = new Date()
+    cal.createCalender(today)
 
     cal.watchCalender()
 
+    cal.watchToggle()
+
 
     document.addEventListener('updateTeeTimes', (event) => {
-        console.log(event.detail.times)
         updateTeeTimes(event.detail.times)
     })
     watchPlayerToggle()
@@ -42,7 +44,7 @@ function updateTeeTimes(times){
                                         </div>
                                         <div class="teetime-footer">
                                             <span>${time.holesDisplay} HOLES | ${time.playersDisplay}</span>
-                                            <span style="font-size:large;">CA$${time.shItemPrices[0].price}.00</span>
+                                            <span style="font-size:large;">CA$${utils.formatPrice(time.shItemPrices[0].price)}</span>
                                         </div>
                                         `
                 container.addEventListener('click', clickTeeTime)

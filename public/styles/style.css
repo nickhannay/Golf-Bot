@@ -145,6 +145,14 @@ form {
 }
 
 
+
+.cal-toggle{
+    max-width:2rem;
+    max-height:2rem;
+    cursor: pointer;
+    overflow: hidden;
+}
+
 #calender #cal-header {
     background-color: #5e9332;
     display: flex;

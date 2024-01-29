@@ -1,14 +1,16 @@
+const GOLF_BOT = require('../../src/shared/golf-bot.js')
+
 let previousDate = null
 let selectedDate = null
 let today = new Date()
 selectedDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
 
 
-const createCalender = () => {
-    let today = new Date();
-    let firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
+// generates the dates for a given month of a given year and highlights the given day
+const createCalender = (date) => {
+    let firstOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
     let calender = document.getElementById('cal-dates')
-    let daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()
+    let daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
 
     const months = [
         'January',
@@ -24,7 +26,7 @@ const createCalender = () => {
         'November',
         'December'
     ];
-    document.getElementById('current-month').innerHTML = `${months[today.getMonth()]}  ${today.getFullYear()}`
+    document.getElementById('current-month').innerHTML = `${months[date.getMonth()]}  ${date.getFullYear()}`
 
 
     // start 1st of month on proper day of week
@@ -39,13 +41,16 @@ const createCalender = () => {
         let day = document.createElement('div')
         day.classList.add('day')
 
-        if(i < today.getDate()){
+
+        console.log(`${date.getMonth()} --- ${today.getMonth()} --- ${date.getFullYear()}`)
+        if((i < date.getDate() && date.getMonth() <= today.getMonth() ) || date.getFullYear() < today.getFullYear()){
             day.classList.add('previous-day')
         }
 
-        if(today.getDate() === i){
+        if(date.getDate() === i){
             day.classList.add('calender-selected')
             previousDate = day
+            selectedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
         }
         day.innerText = i
         calender.appendChild(day)
@@ -72,9 +77,9 @@ const watchCalender = () => {
         previousDate = selection
         
         const selectedDay = selection.innerText
-        const today = new Date()
-        const month = today.getMonth() + 1
-        const searchDate = today.getFullYear() + '-' + month + '-' + selectedDay
+        const selectedMonth = selectedDate.split('-')[1]
+        const selectedYear = selectedDate.split('-')[0]
+        const searchDate = selectedYear + '-' + selectedMonth + '-' + selectedDay
         selectedDate = searchDate
 
         const dropdown = document.getElementById('hole-select')
@@ -82,43 +87,9 @@ const watchCalender = () => {
 
         const holes = selectedOption.innerText === 'Any' ? '0' : selectedOption.innerText.slice(0,2)
 
-        console.log(searchDate)
+       
         
-
-        const params = {
-            searchDate: searchDate,
-            holes: holes,
-            numberOfPlayer: '0',
-            courseIds:'2',
-            searchTimeType:'0',
-            teeOffTimeMin:'0',
-            teeOffTimeMax:'23',
-            isChangeTeeOffTime:'true',
-            teeSheetSearchView:'5',
-            classCode:'R',
-            defaultOnlineRate:'N',
-            isUseCapacityPricing:'false',
-            memberStoreId:'1',
-            searchType:'1',
-        }
-        const res = await fetch('https://golfburnaby.cps.golf/onlineres/onlineapi/api/v1/onlinereservation/TeeTimes?' + new URLSearchParams(params),{
-            headers: {
-                'x-apiKey' : '8ea2914e-cac2-48a7-a3e5-e0f41350bf3a',
-                'x-componentId': '1',
-                'x-ismobile': 'false',
-                'x-productid': '1',
-                'x-requestid': '3a4e1ebb-4041-9595-8589-ec0aaf8ef193',
-                'x-siteid' : '1',
-                'X-TerminalId': '3',
-                'x-timezone-offset': '480',
-                'x-timezoneid':  'America/Vancouver',
-                'Referer': 'https://golfburnaby.cps.golf/onlineresweb/search-teetime?TeeOffTimeMin=0&TeeOffTimeMax=23.999722222222225',
-                'Host': 'golfburnaby.cps.golf',
-                'Authorization': `Bearer null`
-            }
-        })
-
-        const times = await res.json()
+        const times = await GOLF_BOT.getTeeTimes(searchDate, holes)
         
         const updateTeeTimesEvent = new CustomEvent('updateTeeTimes', {detail : {times}})
         document.dispatchEvent(updateTeeTimesEvent)
@@ -131,4 +102,60 @@ const getSelectedDate = () => {
 }
 
 
-module.exports = {createCalender, watchCalender, getSelectedDate}
+const watchToggle = () => {
+    const leftToggle = document.getElementById('cal-toggle-left')
+    const rightToggle = document.getElementById('cal-toggle-right')
+
+    leftToggle.addEventListener('click', async (event) => {
+        // previous month - last day
+        const prevMonth = getPreviousMonth()
+        document.getElementById('cal-dates').innerHTML = ''
+        generateCalHeaders()
+        createCalender(prevMonth)
+
+        const times = await GOLF_BOT.getTeeTimes(selectedDate)
+        const updateTeeTimesEvent = new CustomEvent('updateTeeTimes', {detail : {times}})
+        document.dispatchEvent(updateTeeTimesEvent)
+    })
+
+    rightToggle.addEventListener('click', async (event) => {
+        // next month - first day
+        console.log('next month')
+        const nextMonth = getNextMonth()
+        document.getElementById('cal-dates').innerHTML = ''
+        generateCalHeaders()
+        createCalender(nextMonth)
+
+        const times = await GOLF_BOT.getTeeTimes(selectedDate)
+
+        const updateTeeTimesEvent = new CustomEvent('updateTeeTimes', {detail : {times}})
+        document.dispatchEvent(updateTeeTimesEvent)
+
+    })
+}
+
+
+const getNextMonth = () => {
+    const currentMonth = selectedDate.split('-')[1]
+    const nextMonth = new Date(selectedDate.split('-')[0], currentMonth, 1)
+    return nextMonth
+}
+
+const getPreviousMonth = () => {
+    const currentMonth = selectedDate.split('-')[1]
+    const lastMonth = new Date(selectedDate.split('-')[0], currentMonth - 1, 0)
+    return lastMonth
+}
+
+
+const generateCalHeaders = () => {
+    document.getElementById('cal-dates').innerHTML = `<div class="day day-label">SUN</div>
+                                                      <div class="day day-label">MON</div>
+                                                      <div class="day day-label">TUE</div>
+                                                      <div class="day day-label">WED</div>
+                                                      <div class="day day-label">THU</div>
+                                                      <div class="day day-label">FRI</div>
+                                                      <div class="day day-label">SAT</div>`
+}
+
+module.exports = {createCalender, watchCalender, getSelectedDate, watchToggle}
