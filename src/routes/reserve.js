@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router() 
 const debug = require('debug')('golf-bot:reserve-route')
-const GOLF_BOT = require('../bin/golf-bot.js')
+const GOLF_BOT = require('../shared/golf-bot.js')
+const utils = require('../shared/utils.js')
 const {DynamoDBClient, PutItemCommand} = require('@aws-sdk/client-dynamodb')
 
 
@@ -61,9 +62,10 @@ router.get('/', async (req, res) => {
     let totalTax = priceSummary.shItemPricesGroup[0].taxAmount
     let grandTotal = subTotal + totalTax
 
-    subTotal = formatPrice(subTotal)
-    totalTax = formatPrice(totalTax)
-    grandTotal = formatPrice(grandTotal)
+    subTotal = utils.formatPrice(subTotal)
+    totalTax = utils.formatPrice(totalTax)
+    grandTotal = utils.formatPrice(grandTotal)
+    const itemPrice = utils.formatPrice(priceSummary.shItemPricesGroup[0].price)
     
 
     const template_params = {
@@ -74,7 +76,7 @@ router.get('/', async (req, res) => {
         teeDate: teeDate,
         subTotal: subTotal,
         totalTax: totalTax,
-        itemPrice: priceSummary.shItemPricesGroup[0].price,
+        itemPrice: itemPrice,
         priceDesc: priceSummary.shItemPricesGroup[0].itemDesc,
         grandTotal : grandTotal
     }
@@ -83,16 +85,6 @@ router.get('/', async (req, res) => {
 
 
 
-function formatPrice(price){
-    let str = price.toString()
-
-    if(str.includes('.')){
-        return str + '0'
-    }
-    else{
-        return str + '.00'
-    }
-}
 
 
 

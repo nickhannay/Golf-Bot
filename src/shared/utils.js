@@ -18,5 +18,20 @@ const convert12hr = (timeStamp) => {
     return `${hour12}:${minute} ${am_pm}`
 }
 
+const formatPrice = (price) => {
+    let str = price.toString()
+    let strTok = str.split('.')
 
-module.exports = { convert12hr }
+    if(str === strTok[0]){
+        str = str + '.00'
+    }
+    else{
+        str = strTok[1].length === 1 ? `${str}0` : str
+    }
+
+    return str
+}
+
+
+
+module.exports = { convert12hr, formatPrice }

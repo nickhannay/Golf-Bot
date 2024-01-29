@@ -45,7 +45,7 @@ function updateTeeTimes(times){
                                         </div>
                                         <div class="teetime-footer">
                                             <span>${time.holesDisplay} HOLES | ${time.playersDisplay}</span>
-                                            <span style="font-size:large;">CA$${time.shItemPrices[0].price}.00</span>
+                                            <span style="font-size:large;">CA$${utils.formatPrice(time.shItemPrices[0].price)}</span>
                                         </div>
                                         `
                 container.addEventListener('click', clickTeeTime)

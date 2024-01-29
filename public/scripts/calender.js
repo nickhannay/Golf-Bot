@@ -1,3 +1,5 @@
+const GOLF_BOT = require('../../src/shared/golf-bot.js')
+
 let previousDate = null
 let selectedDate = null
 let today = new Date()
@@ -119,9 +121,12 @@ const watchCalender = () => {
                 'Authorization': `Bearer null`
             }
         })
+        
+        const timeFromBot = await GOLF_BOT.getTeeTimes(searchDate, holes)
+        console.log(`times from bot: ${timeFromBot}`)
 
         const times = await res.json()
-        
+        console.log(`times: ${times}`)
         const updateTeeTimesEvent = new CustomEvent('updateTeeTimes', {detail : {times}})
         document.dispatchEvent(updateTeeTimesEvent)
     })
