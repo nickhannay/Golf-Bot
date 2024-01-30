@@ -8,8 +8,11 @@ const {putReservation} = require('../database.js')
 
 router.post('/', async (req, res) => {
 
+
+
     const reserveObject = {
         email: req.session.email.toString() ,
+        teeDate: req.body.teeDate.toString(),
         pass: req.session.pass.toString(),
         teeSheetId: req.body.teeSheetId.toString(),
         golferId: req.session.golferId.toString(),
@@ -35,6 +38,7 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
     let teeSheetId = req.query.teeSheetId
     const numPlayers = req.query.numPlayers
+    
 
     const timeSlices = req.query.teeTime.split(' ')
     const teeTime = `${timeSlices[0]} ${timeSlices[1].toUpperCase()}`
@@ -74,7 +78,9 @@ router.get('/', async (req, res) => {
 
 
 
-
+function dateToStore(date){
+    
+}
 
 function convertTeeDate(date){
 

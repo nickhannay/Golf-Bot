@@ -69,12 +69,14 @@ let clickTeeTime = async (ev) => {
     const button = ev.target.closest('.teetime-container');
     const selectedTeeTime = button.getAttribute('id')
     console.log(`tee sheet id: ${selectedTeeTime}`)
+    
     window.sessionStorage.setItem('teeSheetId', selectedTeeTime)
 
     const teeTime = button.querySelector('span:first-child').innerText
 
     const selectedDate = cal.getSelectedDate()
     console.log(`selected date: ${selectedDate}`)
+    sessionStorage.setItem('selectedDate', selectedDate)
 
 
     const res = await fetch('/dashboard',

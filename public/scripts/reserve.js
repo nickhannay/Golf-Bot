@@ -1,13 +1,21 @@
+
+
+document.getElementById('reserve-button').addEventListener('click', (event) => {
+    reserveTeeTime()
+})
+
 const reserveTeeTime = (async () => {
     
     const teeSheetId = window.sessionStorage.getItem('teeSheetId')
     console.log(`reserving ${teeSheetId}`)
 
     const numPlayers = document.getElementById('num-players-selected').innerText
+    const date = sessionStorage.getItem('selectedDate')
     
     const reserveObject = {
         teeSheetId: teeSheetId,
-        numGolfers: numPlayers
+        numGolfers: numPlayers,
+        teeDate: date,
     }
 
 

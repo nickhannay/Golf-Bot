@@ -9,7 +9,7 @@ const putReservation = (reserveObject) => {
         TableName: 'GolfBot-Reservations',
         Item : {
             'golferId' : { 'S' : reserveObject.golferId},
-            'reserveDate' : {'S' : 'DATE'},
+            'reserveDate' : {'S' : reserveObject.teeDate},
             'acctNum' : {'S' : reserveObject.acctNum},
             'teeSheetId' : {'S' : reserveObject.teeSheetId},
             'numGolfers' : {'S' : reserveObject.numGolfers},
