@@ -3,10 +3,10 @@ const router = express.Router()
 const debug = require('debug')('golf-bot:reserve-route')
 const GOLF_BOT = require('../shared/golf-bot.js')
 const utils = require('../shared/utils.js')
-const {DynamoDBClient, PutItemCommand} = require('@aws-sdk/client-dynamodb')
+const {putReservation} = require('../database.js')
 
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
 
     const reserveObject = {
         email: req.session.email.toString() ,
@@ -17,40 +17,20 @@ router.post('/', (req, res) => {
         numGolfers: req.session.numGolfers.toString()
     }
 
-    debug(`storing <\n ${JSON.stringify(reserveObject)}\n>`)
 
-    const client  = new DynamoDBClient()
+    const result = await putReservation(reserveObject)
 
-    const params = {
-        TableName: 'GolfBot-Reservations',
-        Item : {
-            'golferId' : { 'S' : reserveObject.golferId},
-            'reserveDate' : {'S' : 'DATE'},
-            'acctNum' : {'S' : reserveObject.acctNum},
-            'teeSheetId' : {'S' : reserveObject.teeSheetId},
-            'numGolfers' : {'S' : reserveObject.numGolfers},
-            'email' : {'S' : reserveObject.email},
-            'password' : {'S' : reserveObject.pass}
-        }
+    if(!result.res){
+        debug(`failed to add: \n%O\n to DB\n ${result.data}`, reserveObject)
     }
-
-    const command = new PutItemCommand(params)
-
-    client.send(command)
-    .then( data => {
-        debug(`Successfully added reservation to DB ${JSON.stringify(data)}`)
-    }).catch( err =>{
-        debug(`Error adding to DB :\n${err}`)
-    })
+    else{
+        debug(`successfully added : \n%O\n to DB\n`, reserveObject)
+    }
 
 
     res.json({redirect: '/dashboard'})
 })
 
-
-function convertToDB(item){
-    return `{ 'S' : '${item}'}`
-}
 
 router.get('/', async (req, res) => {
     let teeSheetId = req.query.teeSheetId
@@ -65,7 +45,6 @@ router.get('/', async (req, res) => {
 
     teeSheetId = parseInt(teeSheetId, 10)
     const priceSummary = await GOLF_BOT.calculatePrice(teeSheetId, token, golferId, acctNum, numPlayers)
-    debug(JSON.stringify(priceSummary))
 
     let subTotal = priceSummary.shItemPricesGroup[0].extendedPrice
     let totalTax = priceSummary.shItemPricesGroup[0].taxAmount
