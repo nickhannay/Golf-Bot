@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.501.0",
+    "@aws-sdk/lib-dynamodb": "^3.502.0",
     "browserify": "^17.0.0",
     "connect-redis": "^7.1.1",
     "cookie-parser": "~1.4.4",

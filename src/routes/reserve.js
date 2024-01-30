@@ -9,12 +9,12 @@ const {DynamoDBClient, PutItemCommand} = require('@aws-sdk/client-dynamodb')
 router.post('/', (req, res) => {
 
     const reserveObject = {
-        email: req.session.email ,
-        pass: req.session.pass,
-        teeSheetId: req.body.teeSheetId,
-        golferId: req.session.golferId,
-        acctNum: req.session.account,
-        numGolfers: req.session.numGolfers
+        email: req.session.email.toString() ,
+        pass: req.session.pass.toString(),
+        teeSheetId: req.body.teeSheetId.toString(),
+        golferId: req.session.golferId.toString(),
+        acctNum: req.session.account.toString(),
+        numGolfers: req.session.numGolfers.toString()
     }
 
     debug(`storing <\n ${JSON.stringify(reserveObject)}\n>`)
@@ -24,9 +24,13 @@ router.post('/', (req, res) => {
     const params = {
         TableName: 'GolfBot-Reservations',
         Item : {
-            golferId : { 'S': reserveObject.golferId.toString()},
-            reserveDate: {'S' : 'Date PlaceHolder'},
-            teeSheetId : {'S' : reserveObject.teeSheetId.toString()}
+            'golferId' : { 'S' : reserveObject.golferId},
+            'reserveDate' : {'S' : 'DATE'},
+            'acctNum' : {'S' : reserveObject.acctNum},
+            'teeSheetId' : {'S' : reserveObject.teeSheetId},
+            'numGolfers' : {'S' : reserveObject.numGolfers},
+            'email' : {'S' : reserveObject.email},
+            'password' : {'S' : reserveObject.pass}
         }
     }
 
@@ -42,6 +46,11 @@ router.post('/', (req, res) => {
 
     res.json({redirect: '/dashboard'})
 })
+
+
+function convertToDB(item){
+    return `{ 'S' : '${item}'}`
+}
 
 router.get('/', async (req, res) => {
     let teeSheetId = req.query.teeSheetId
