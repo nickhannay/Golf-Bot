@@ -111,7 +111,9 @@ const watchToggle = () => {
         const prevMonth = getPreviousMonth()
         document.getElementById('cal-dates').innerHTML = ''
         generateCalHeaders()
-        createCalender(prevMonth)
+        console.log(`${prevMonth.getMonth()} --- ${today.getMonth()}`)
+        prevMonth.getMonth() === today.getMonth() ?  createCalender(today): createCalender(prevMonth)
+        
 
         const times = await GOLF_BOT.getTeeTimes(selectedDate)
         const updateTeeTimesEvent = new CustomEvent('updateTeeTimes', {detail : {times}})
@@ -124,7 +126,7 @@ const watchToggle = () => {
         const nextMonth = getNextMonth()
         document.getElementById('cal-dates').innerHTML = ''
         generateCalHeaders()
-        createCalender(nextMonth)
+        nextMonth.getMonth() === today.getMonth() ?  createCalender(today): createCalender(nextMonth)
 
         const times = await GOLF_BOT.getTeeTimes(selectedDate)
 

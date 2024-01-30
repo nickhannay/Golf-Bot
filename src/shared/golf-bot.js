@@ -62,10 +62,6 @@ class GOLF_BOT{
         const res = await fetch('https://golfburnaby.cps.golf/identityapi/connect/userinfo', {
             headers: headers
         })
-
-        debug(`Headers: \n%O`, headers)
-
-        debug('Response: \n%O', res)
         
         const json = await res.json()
         
@@ -81,7 +77,6 @@ class GOLF_BOT{
         const headers = this.#createHeader(token)
         headers["Content-Type"] =  'application/json'
         const golfers = new Array(numGolfers)
-        debug(teeSheetId)
 
         for(let i = 0; i < numGolfers; i++){
             golfers[i] = this.#createGolfer(teeSheetId, i + 1, golferId, acctNum)
