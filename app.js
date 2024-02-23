@@ -1,16 +1,17 @@
+require('dotenv').config()
 const cors = require('cors')
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const session = require('express-session')
-const fs = require('fs')
 const redisStore = require('./src/redis-config')
 const debug = require('debug')('golf-bot:app')
-
 const indexRouter = require('./src/routes/index');
 const dashboardRouter = require('./src/routes/dashboard');
 const reserveRouter = require('./src/routes/reserve');
 const cookieParser = require('cookie-parser');
+
+
 
 const app = express();
 
@@ -24,12 +25,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-
-
-
 app.use(session({
     resave: false,
-    secret: "development",
+    secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
     store: redisStore,
     cookie: {
@@ -37,7 +35,6 @@ app.use(session({
         sameSite: 'none'
     }
 }))
-
 app.use(cookieParser())
 
 
@@ -54,16 +51,9 @@ app.use((req, res , next) => {
     }
 })
 
-
-
-
 // Protected Routes
 app.use('/dashboard', dashboardRouter);
 app.use('/reserve', reserveRouter)
-
-
-
-
 
 
 
