@@ -2,7 +2,7 @@ const {DynamoDBClient, PutItemCommand} = require('@aws-sdk/client-dynamodb')
 const debug = require('debug')('golf-bot:DB')
 
 
-const putReservation = (reserveObject) => {
+const putReservation = async (reserveObject) => {
     const client  = new DynamoDBClient()
 
     const params = {
@@ -15,7 +15,9 @@ const putReservation = (reserveObject) => {
             'numGolfers' : {'S' : reserveObject.numGolfers},
             'email' : {'S' : reserveObject.email},
             'password' : {'S' : reserveObject.pass}
-        }
+        },
+
+        
     }
 
     const command = new PutItemCommand(params)
