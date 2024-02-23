@@ -12,8 +12,9 @@ const port = process.env.PORT || DEFAULT_PORT;
 app.set('port', port);
 
 const certs = {
-    key: fs.readFileSync(path.join(__dirname, 'certs', 'localhost+2-key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, 'certs', 'localhost+2.pem')),
+    key: fs.readFileSync(path.join(__dirname, 'certs', 'golfbot-ssl.key')),
+    cert: fs.readFileSync(path.join(__dirname, 'certs', 'golfbot-ssl.crt')),
+    passphrase: "gbot"
 }
 
 
