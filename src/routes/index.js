@@ -15,28 +15,25 @@ router.post('/', async (req, res) => {
     const email = req.body['email'];
     const password = req.body['password'];
 
-    let token = null
-    if(!req.session.hasOwnProperty('token') ){
-        token = await GOLF_BOT.getToken(email, password)
-        req.session.token = token
-    }
-    const json = await GOLF_BOT.getUserInfo(req.session.token)
+   
+    let token = await GOLF_BOT.getToken(email, password)
+        
+    
 
-    req.session.fullName = `${json.first_name} ${json.last_name}`
-    req.session.account = `${json.acct}`
-    req.session.golferId = `${json.golferId}`
-    req.session.email = `${email}`
-    req.session.pass = `${password}`
-    res.redirect('dashboard')
-
-
-
-    /*if(token === null){
+    debug(token)
+    if(token === null){
         res.render('index', {error: 'Invalid login credentials'})
     }
     else{
-        
-    }*/
+        const json = await GOLF_BOT.getUserInfo(token)
+        req.session.token = token
+        req.session.fullName = `${json.first_name} ${json.last_name}`
+        req.session.account = `${json.acct}`
+        req.session.golferId = `${json.golferId}`
+        req.session.email = `${email}`
+        req.session.pass = `${password}`
+        res.redirect('dashboard')
+    }
 
     
 });
