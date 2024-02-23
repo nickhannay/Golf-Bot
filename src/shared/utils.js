@@ -32,6 +32,32 @@ const formatPrice = (price) => {
     return str
 }
 
+const convertTeeDate = (date) => {
+
+    const months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
+    ];
+
+    const dateSlices = date.split('-')
+    const year = dateSlices[0]
+    const month = months[dateSlices[1] - 1 ]
+    const day = dateSlices[2]
+
+    return `${month} ${day}, ${year}`
+
+}
 
 
-module.exports = { convert12hr, formatPrice }
+
+module.exports = { convert12hr, formatPrice, convertTeeDate}
