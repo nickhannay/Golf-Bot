@@ -7,7 +7,8 @@ const utils = require('../shared/utils.js')
 // render dashboard
 router.get('/', async (req, res, next) => {
     const today = new Date()
-    const searchDate = today.getFullYear() + '-' + today.getMonth()+1 + '-' + today.getDate()
+    const searchDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
+    debug(searchDate)
     const times = await GOLF_BOT.getTeeTimes(searchDate)
 
     const availableTimes = Array.isArray(times)
@@ -17,7 +18,8 @@ router.get('/', async (req, res, next) => {
         })
     }
     
-
+    debug(times)
+    debug(`${availableTimes}`)
 
     res.render('dashboard', {teetimes: times, availableTimes})
 });
