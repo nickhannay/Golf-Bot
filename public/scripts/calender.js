@@ -64,7 +64,7 @@ const watchCalender = () => {
 
     cal.addEventListener('click', async (ev) => {
 
-        // disable clicks for day labels
+        // disable clicks for header row and previous days
         if(ev.target.classList.contains('day-label') || ev.target.classList.contains('previous-day')){
             return
         }

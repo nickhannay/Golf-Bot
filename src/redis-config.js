@@ -4,10 +4,10 @@ const debug = require('debug')('golf-bot:redis-config')
 
 
 function configureRedis(){
-    const host = 'redis-11358.c289.us-west-1-2.ec2.cloud.redislabs.com'
+    const host = process.env.REDIS_HOST
 
     const redisClient = redis.createClient({
-        password: 'FLE7YmHfK4pdT5H768VKCr012Sti8ynI',
+        password: process.env.REDIS_PASS,
         socket: {
             port:  11358,
             host: host 

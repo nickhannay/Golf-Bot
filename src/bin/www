@@ -14,7 +14,7 @@ app.set('port', port);
 const certs = {
     key: fs.readFileSync(path.join(__dirname, 'certs', 'golfbot-ssl.key')),
     cert: fs.readFileSync(path.join(__dirname, 'certs', 'golfbot-ssl.crt')),
-    passphrase: "gbot"
+    passphrase: process.env.SSL_PASSPHRASE
 }
 
 
