@@ -23,10 +23,10 @@ const putReservation = async (reserveObject) => {
     const command = new PutItemCommand(params)
 
     return client.send(command)
-    .then( data => {
-        return {res: true, data: data}
+    .then( () => {
+        return 'success'
     }).catch( err =>{
-        return {res : false, data : err}
+        return err
     })
 }
 

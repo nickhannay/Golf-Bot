@@ -22,12 +22,14 @@ router.post('/', async (req, res) => {
 
 
     const result = await putReservation(reserveObject)
-
-    if(!result.res){
-        debug(`failed to add: \n%O\n to DB\n ${result.data}`, reserveObject)
+    if(result === 'success'){
+        debug("successfully added:\n\t%O\nto DB", reserveObject)
+    }
+    else if (result.name === "ConditionalCheckFailedException"){
+        debug("Can't reserve more than 1 tee time per day")
     }
     else{
-        debug(`successfully added : \n%O\n to DB\n`, reserveObject)
+        debug(`Error Adding to DB\n\tmsg: ${result.message}`)
     }
 
 
