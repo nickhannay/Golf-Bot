@@ -1,24 +1,27 @@
-
 <!DOCTYPE html>
 <html lang="en-us">
-    <%- include('partials/head') %>
+<%- include('partials/head') %>
+
     <body>
         <div class="content">
             <div id="welcome-container">
                 <h1 style="margin-bottom: 3rem">Welcome to Golf Bot!</h1>
                 <h3 style="margin: 0;margin-bottom: 10px;">Log in to get started</h1>
-                <form action="/" method="POST">
-                    <input class="input-login" name="email" id="email" type="email" placeholder="email" required>
-                    <input class="input-login" name="password" id="password" type="password" placeholder="password" required>
-                    <button id="btn-submit" type="submit">Login</button>
-                </form>
+                    <form id="login-form" action="/" method="POST">
+                        <input class="input-login" name="email" id="email" placeholder="email">
+                        <input class="input-login" name="password" id="password" type="password" placeholder="password">
+                        <button id="btn-submit" type="submit">Login</button>
+                    </form>
 
-                <% if (typeof error !== 'undefined') { %>
-                    <div id="error-msg"><%= error %></div>
-                <% } %>
+                    <% if (typeof error !=='undefined' ) { %>
+                        <div id="error-msg">
+                            <%= error %>
+                        </div>
+                        <% } %>
             </div>
             <%- include('partials/footer') %>
         </div>
     </body>
     <script src="scripts/login.js"></script>
+
 </html>
