@@ -16,7 +16,7 @@ const putReservation = async (reserveObject) => {
             'email' : {'S' : reserveObject.email},
             'password' : {'S' : reserveObject.pass}
         },
-
+        ConditionExpression: 'attribute_not_exists(golferId) AND attribute_not_exists(reserveDate)'
         
     }
 
