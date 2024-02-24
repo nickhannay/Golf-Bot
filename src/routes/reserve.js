@@ -24,16 +24,19 @@ router.post('/', async (req, res) => {
     const result = await putReservation(reserveObject)
     if(result === 'success'){
         debug("successfully added:\n\t%O\nto DB", reserveObject)
+        res.json({redirect: '/dashboard'})
     }
     else if (result.name === "ConditionalCheckFailedException"){
         debug("Can't reserve more than 1 tee time per day")
+        res.json({redirect: '/dashboard', error: 'Duplicate'})
     }
     else{
         debug(`Error Adding to DB\n\tmsg: ${result.message}`)
+        res.json({redirect: '/dashboard', error: 'Hard-Fail'})
     }
 
 
-    res.json({redirect: '/dashboard'})
+    
 })
 
 

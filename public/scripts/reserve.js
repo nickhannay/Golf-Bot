@@ -30,7 +30,13 @@ const reserveTeeTime = (async () => {
     const json = await res.json()
 
     console.log(json)
-    window.location.href = json.redirect
+    if(json.error){
+        window.location.href = json.redirect + `?error=${json.error}`
+    }
+    else{
+        window.location.href = json.redirect
+    }
+    
 
 
 })
