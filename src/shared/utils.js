@@ -7,8 +7,12 @@ const convert12hr = (timeStamp) => {
     let am_pm = 'am'
     let hour12 = ''
 
-    if(hour_int <= 12){
+    if(hour_int < 12){
         hour12 = hour_int.toString()
+    }
+    else if(hour_int === 12){
+        hour12 = hour_int.toString()
+        am_pm = 'pm'
     }
     else {
         hour12 = (hour_int % 12 ).toString()

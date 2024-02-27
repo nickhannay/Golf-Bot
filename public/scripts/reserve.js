@@ -31,9 +31,12 @@ const reserveTeeTime = (async () => {
 
     console.log(json)
     if(json.error){
-        window.location.href = json.redirect + `?error=${json.error}`
+        window.sessionStorage.setItem('reserve_error', json.error)
+        window.location.href = json.redirect
+        
     }
     else{
+        window.sessionStorage.removeItem('reserve_error')
         window.location.href = json.redirect
     }
     

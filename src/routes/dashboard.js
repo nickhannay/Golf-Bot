@@ -18,10 +18,16 @@ router.get('/', async (req, res, next) => {
         })
     }
     
-    debug(times)
-    debug(`${availableTimes}`)
-
-    res.render('dashboard', {teetimes: times, availableTimes})
+    if(req.session.reserve_error){
+        req.session.reserve_error = null
+        res.render('dashboard', {teetimes: times, availableTimes, reserve_error: req.session.reserve_error})
+        debug("error")
+    }
+    else{
+        res.render('dashboard', {teetimes: times, availableTimes})
+        debug("nicnk man")
+    }
+    
 });
 
 

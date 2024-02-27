@@ -43,6 +43,22 @@ form {
     align-self: center;
 }
 
+
+#reserve-error-container{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    margin-left: 37.5%;
+    height: 7.5rem;
+    width: 50%;
+    background-color: rgb(255, 0, 0);
+    border-radius: 10px;
+    padding: 3px 0 3px 0
+
+}
+
+
 #right-teetimes {
     width: 75%;
     float: right;
