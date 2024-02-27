@@ -16,17 +16,17 @@ const putReservation = async (reserveObject) => {
             'email' : {'S' : reserveObject.email},
             'password' : {'S' : reserveObject.pass}
         },
-
+        ConditionExpression: 'attribute_not_exists(golferId) AND attribute_not_exists(reserveDate)'
         
     }
 
     const command = new PutItemCommand(params)
 
     return client.send(command)
-    .then( data => {
-        return {res: true, data: data}
-    }).catch( err =>{
-        return {res : false, data : err}
+    .then(res => {
+        return res
+    }).catch(err =>{
+        return err
     })
 }
 

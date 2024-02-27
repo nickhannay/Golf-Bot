@@ -2,13 +2,19 @@ const utils = require('../../src/shared/utils.js')
 const cal = require('./calender.js')
 
 document.addEventListener('DOMContentLoaded', () => {
+    const reserve_result = document.getElementById('reserve-msg-container')
+    if(reserve_result){
+        window.setTimeout(() => {
+            reserve_result.style.visibility = 'hidden'
+        }, 10000)
+    }
+
     const today = new Date()
     cal.createCalender(today)
 
     cal.watchCalender()
 
     cal.watchToggle()
-
 
     document.addEventListener('updateTeeTimes', (event) => {
         updateTeeTimes(event.detail.times)

@@ -28,9 +28,7 @@ const reserveTeeTime = (async () => {
     })
 
     const json = await res.json()
-
-    console.log(json)
-    window.location.href = json.redirect
-
+    console.log(JSON.stringify(json))
+    window.location.href  = json.redirect + `?reserve_state=${json.reserve_status.state}&reserve_msg=${json.reserve_status.msg}`
 
 })

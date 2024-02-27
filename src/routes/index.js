@@ -14,11 +14,9 @@ router.get('/', function(req, res, next) {
 router.post('/', async (req, res) => {
     const email = req.body['email'];
     const password = req.body['password'];
-
-   
+ 
     let token = await GOLF_BOT.getToken(email, password)
-        
-    
+
 
     debug(token)
     if(token === null){

@@ -52,41 +52,65 @@
         <div id="right-teetimes">
             <% if (availableTimes) { %>
                 <% let index=0 %>
-                    <% while (index < teetimes.length) { %>
-                        <% if (index % 4===0) { %>
-                            <div class="teetime-row">
-                                <% } %>
+                <% while (index < teetimes.length) { %>
+                    <% if (index % 4===0) { %>
+                        <div class="teetime-row">
+                    <% } %>
+                    <button class="teetime-container" onclick="clickTeeTime(event)">
+                        <div class="teetime-TimeLabel">
+                            <span style="margin-bottom: 1.5rem">
+                                <%= teetimes[index].displayTime %>
+                            </span>
+                            <span class="start-hole">Tee
+                                <%= teetimes[index].startingTee %>
+                            </span>
+                            <span style="color:#C48A1C" class="start-hole">
+                                <%=teetimes[index].courseName %>
+                            </span>
+                        </div>
+                        <div class="teetime-footer">
+                            <%= teetimes[index].holesDisplay%> HOLES |
+                                <%=teetimes[index].playersDisplay%>
+                        </div>
+                    </button>
+                    <% if (index % 4===3) {%>
+                        </div>
+                    <% } %>
 
-                                    <button class="teetime-container" onclick="clickTeeTime(event)">
-                                        <div class="teetime-TimeLabel">
-                                            <span style="margin-bottom: 1.5rem">
-                                                <%= teetimes[index].displayTime %>
-                                            </span>
-                                            <span class="start-hole">Tee
-                                                <%= teetimes[index].startingTee %>
-                                            </span>
-                                            <span style="color:#C48A1C" class="start-hole">
-                                                <%=teetimes[index].courseName %>
-                                            </span>
-                                        </div>
-                                        <div class="teetime-footer">
-                                            <%= teetimes[index].holesDisplay%> HOLES |
-                                                <%=teetimes[index].playersDisplay%>
-                                        </div>
-                                    </button>
-                                    <% if (index % 4===3) {%>
-                            </div>
-                            <% } %>
-                                <% index++ %>
-                                    <% } %>
+                    <% index++ %>
+                <% } %>
 
-                                        <% if (index % 4 !==0) { %>
-        </div>
-        <% } %>
+                <% if (index % 4 !==0) { %>
+                    </div>
+                <% } %>
             <% } else { %>
                 <div class="missingTeeTimes"> <span>NO TEE TIMES AVAILABLE.</span></div>
-                <% } %>
+            <% } %>
+        </div>
+        <% if (typeof reserve_status !== 'undefined') { %>
+            <% if (reserve_status.reserve_state === 'success' ) { %>
+                <div id="reserve-msg-container" style="background-color: green;">
+                    <div id="reserve-msg" style="font-family: 'Noto Sans', 'Poppins', sans-serif;">
+                        Successfully reserved Tee Time!
                     </div>
+                </div>
+            <% } else if (reserve_status.reserve_msg === 'duplicate'){ %>
+                <div id="reserve-msg-container" style="background-color: red;">
+                    <div id="reserve-msg" style="font-family: 'Noto Sans', 'Poppins', sans-serif;">
+                        Error reserving Tee Time (Duplicate):
+                        You may only reserve 1 tee time per day
+                    </div>
+                </div>
+            <% } else { %>
+                <div id="reserve-msg-container" style="background-color: red;">
+                    <div id="reserve-msg" style="font-family: 'Noto Sans', 'Poppins', sans-serif;">
+                        Error reserving Tee Time (Unknown):
+                        An unknown error has occurred. If this issue persists contact King Steeze at:
+                        kingsteeze@proton.me
+                    </div>
+                </div>
+            <% }%>
+        <% } %>
 
 
     </body>

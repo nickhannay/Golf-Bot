@@ -7,7 +7,8 @@ const utils = require('../shared/utils.js')
 // render dashboard
 router.get('/', async (req, res, next) => {
     const today = new Date()
-    const searchDate = today.getFullYear() + '-' + today.getMonth()+1 + '-' + today.getDate()
+    const searchDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
+    
     const times = await GOLF_BOT.getTeeTimes(searchDate)
 
     const availableTimes = Array.isArray(times)
@@ -16,16 +17,19 @@ router.get('/', async (req, res, next) => {
             time.displayTime = utils.convert12hr(time.startTime)
         })
     }
+
+    if(req.query.reserve_state){
+        res.render('dashboard', {teetimes: times, availableTimes, reserve_status: {reserve_state: req.query.reserve_state, reserve_msg: req.query.reserve_msg}})
+    }
+    else{
+        res.render('dashboard', {teetimes: times, availableTimes})
+    }
     
-
-
-    res.render('dashboard', {teetimes: times, availableTimes})
 });
 
 
 // handle AJAX request from client
 router.post('/', (req, res) => {
-    debug(`Time: ${req.body.teeTime} - Date: ${req.body.teeDate}`)
     req.session.numGolfers = req.body.numPlayers
     const params = {
         teeSheetId : req.body.teeSheetId,
