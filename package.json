@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "sudo node ./src/bin/www",
+    "start": "sudo node ./src/bin/www &",
     "dev": "npm run build && cross-env DEBUG=golf-bot:* nodemon ./src/bin/www",
     "build": "browserify ./public/scripts/dashboard.js -o ./public/scripts/bundle.js && browserify ./public/scripts/reserve.js -o ./public/scripts/reserve-bundle.js"
   },
