@@ -2,23 +2,10 @@ const utils = require('../../src/shared/utils.js')
 const cal = require('./calender.js')
 
 document.addEventListener('DOMContentLoaded', () => {
-    if(window.sessionStorage.reserve_error){
-        if(window.sessionStorage.reserve_error === "duplicate" ){
-            document.getElementById('reserve-error-msg').innerHTML = `
-            <p style="text-align:center;"> Reservation Aborted ! </p>
-            <p style="text-align:center;"> You can only reserve 1 tee time per day<\p>
-            `
-        }
-        else{
-            document.getElementById('reserve-error-msg').innerHTML = `
-            <p style="text-align:center; height: 1rem"> Error reserving tee time </p> 
-            <p style="text-align:center; height: 1rem"> If the issue persists please contact King Steeze at: </p>
-            <p style="text-align:center; height: 1rem"> kingsteeze@proton.me</p>
-            `
-        }
-        
+    const reserve_result = document.getElementById('reserve-msg-container')
+    if(reserve_result){
         window.setTimeout(() => {
-            document.getElementById('reserve-error-container').style.visibility = 'hidden'
+            reserve_result.style.visibility = 'hidden'
         }, 10000)
     }
 

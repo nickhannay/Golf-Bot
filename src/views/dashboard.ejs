@@ -87,14 +87,29 @@
                 <div class="missingTeeTimes"> <span>NO TEE TIMES AVAILABLE.</span></div>
             <% } %>
         </div>
-        <% if (typeof reserve_error !== 'undefined') { %>
-            
-            <div id="reserve-error-container">
-                <div id="reserve-error-msg" style="font-family: 'Noto Sans', 'Poppins', sans-serif;">
-                    
+        <% if (typeof reserve_status !== 'undefined') { %>
+            <% if (reserve_status.reserve_state === 'success' ) { %>
+                <div id="reserve-msg-container" style="background-color: green;">
+                    <div id="reserve-msg" style="font-family: 'Noto Sans', 'Poppins', sans-serif;">
+                        Successfully reserved Tee Time!
+                    </div>
                 </div>
-            </div>
-            
+            <% } else if (reserve_status.reserve_msg === 'duplicate'){ %>
+                <div id="reserve-msg-container" style="background-color: red;">
+                    <div id="reserve-msg" style="font-family: 'Noto Sans', 'Poppins', sans-serif;">
+                        Error reserving Tee Time (Duplicate):
+                        You may only reserve 1 tee time per day
+                    </div>
+                </div>
+            <% } else { %>
+                <div id="reserve-msg-container" style="background-color: red;">
+                    <div id="reserve-msg" style="font-family: 'Noto Sans', 'Poppins', sans-serif;">
+                        Error reserving Tee Time (Unknown):
+                        An unknown error has occurred. If this issue persists contact King Steeze at:
+                        kingsteeze@proton.me
+                    </div>
+                </div>
+            <% }%>
         <% } %>
 
 

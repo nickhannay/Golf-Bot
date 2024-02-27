@@ -44,7 +44,7 @@ form {
 }
 
 
-#reserve-error-container{
+#reserve-msg-container{
     display : flex;
     justify-content: center;
     align-items: center;
@@ -52,7 +52,6 @@ form {
     margin-left: 37.5%;
     height: 7.5rem;
     width: 50%;
-    background-color: rgb(255, 0, 0);
     border-radius: 10px;
     padding: 3px 0 3px 0
 

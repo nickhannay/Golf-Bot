@@ -22,25 +22,20 @@ router.post('/', async (req, res) => {
 
 
     const result = await putReservation(reserveObject)
-    if(result === 'success'){
+    if(result.$metadata.httpStatusCode == 200){
         debug("successfully added:\n\t%O\nto DB", reserveObject)
-        req.session.reserve_error = null
-        res.json({redirect: '/dashboard'})
+        res.json({redirect: '/dashboard', reserve_status: {state: 'success', msg: "success"}})
     }
-    else if (result.name === "ConditionalCheckFailedException"){
-        const error = "duplicate"
-        req.session.reserve_error = error
-        res.json({redirect: '/dashboard', error: error})
-    }
-    else{
+    else {
         debug(`Error Adding to DB\n\tmsg: ${result.message}`)
-        const error = "hard_fail"
-        req.session.reserve_error = error
-        res.json({redirect: '/dashboard', error: error})
+        if (result.name === "ConditionalCheckFailedException"){
+            res.json({redirect: '/dashboard', reserve_status: {state: 'failure', msg: "duplicate"}})
+        }
+        else{
+            res.json({redirect: '/dashboard', reserve_status: {state: 'failure', msg: "unknown"}})
+        }
     }
 
-
-    
 })
 
 

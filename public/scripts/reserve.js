@@ -28,18 +28,7 @@ const reserveTeeTime = (async () => {
     })
 
     const json = await res.json()
-
-    console.log(json)
-    if(json.error){
-        window.sessionStorage.setItem('reserve_error', json.error)
-        window.location.href = json.redirect
-        
-    }
-    else{
-        window.sessionStorage.removeItem('reserve_error')
-        window.location.href = json.redirect
-    }
-    
-
+    console.log(JSON.stringify(json))
+    window.location.href  = json.redirect + `?reserve_state=${json.reserve_status.state}&reserve_msg=${json.reserve_status.msg}`
 
 })
