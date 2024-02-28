@@ -1,4 +1,5 @@
-const {DynamoDBClient, PutItemCommand} = require('@aws-sdk/client-dynamodb')
+const {DynamoDBClient, PutItemCommand, ScanCommand} = require('@aws-sdk/client-dynamodb')
+const { param } = require('./routes')
 const debug = require('debug')('golf-bot:DB')
 
 
@@ -37,16 +38,36 @@ class Database{
         const command = new PutItemCommand(params)
     
         return this.#db_client.send(command)
-        .then(res => {
-            return res
-        }).catch(err =>{
-            return err
-        })
+                    .then(res => {
+                        return res
+                    }).catch(err =>{
+                        return err
+                    })
     }
 
 
     async getReservations(){
+        const five_days = Date.now() + (5 * 24 * 60 * 60 * 1000)
+        let date = new Date(five_days)
+        date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+        debug("Fetching all reservations on: " + date)
+        const params = {
+            TableName: Database.#db_name,
+            ExpressionAttributeValues: {
+                ":date" : { S : date}
+            },
+            FilterExpression: 'reserveDate = :date'
+        }
         
+        const command = new ScanCommand(params)
+
+        return this.#db_client.send(command)
+                    .then(res => {
+                        return res
+                    })
+                    .catch(err => {
+                        return err
+                    })
 
     }
 

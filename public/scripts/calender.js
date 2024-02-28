@@ -40,7 +40,6 @@ const createCalender = (date) => {
     for(let i = 1; i <= daysInMonth; i++){
         let day = document.createElement('div')
         day.classList.add('day')
-        
         if((i < date.getDate() && date.getMonth() <= today.getMonth() ) || date.getFullYear() < today.getFullYear()){
             day.classList.add('previous-day')
         }
