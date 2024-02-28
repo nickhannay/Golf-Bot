@@ -40,9 +40,7 @@ const createCalender = (date) => {
     for(let i = 1; i <= daysInMonth; i++){
         let day = document.createElement('div')
         day.classList.add('day')
-
-
-        console.log(`${date.getMonth()} --- ${today.getMonth()} --- ${date.getFullYear()}`)
+        
         if((i < date.getDate() && date.getMonth() <= today.getMonth() ) || date.getFullYear() < today.getFullYear()){
             day.classList.add('previous-day')
         }
@@ -111,7 +109,6 @@ const watchToggle = () => {
         const prevMonth = getPreviousMonth()
         document.getElementById('cal-dates').innerHTML = ''
         generateCalHeaders()
-        console.log(`${prevMonth.getMonth()} --- ${today.getMonth()}`)
         prevMonth.getMonth() === today.getMonth() ?  createCalender(today): createCalender(prevMonth)
         
 
