@@ -25,7 +25,7 @@ const getSessionId = async () => {
     await browser.close()
     debug('terminated headless session')
 
-    return sessionId
+    return sessionId.split(',')[0].split(':')[1]
 }
 
 module.exports  = getSessionId
