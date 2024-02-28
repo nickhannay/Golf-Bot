@@ -10,7 +10,9 @@ const indexRouter = require('./src/routes/index');
 const dashboardRouter = require('./src/routes/dashboard');
 const reserveRouter = require('./src/routes/reserve');
 const cookieParser = require('cookie-parser');
+const scheduler = require('./src/scheduler')
 
+scheduler.initializeScheduler()
 
 
 const app = express();
@@ -36,9 +38,6 @@ app.use(session({
     }
 }))
 app.use(cookieParser())
-
-
-
 
 
 app.use('/', indexRouter);

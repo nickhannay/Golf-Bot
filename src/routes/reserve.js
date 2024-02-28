@@ -3,7 +3,7 @@ const router = express.Router()
 const debug = require('debug')('golf-bot:reserve-route')
 const GOLF_BOT = require('../shared/golf-bot.js')
 const utils = require('../shared/utils.js')
-const {putReservation} = require('../database.js')
+const database = require('../database.js')
 
 
 router.post('/', async (req, res) => {
@@ -20,8 +20,8 @@ router.post('/', async (req, res) => {
         numGolfers: req.session.numGolfers.toString()
     }
 
-
-    const result = await putReservation(reserveObject)
+    const db = new database()
+    const result = await db.putReservation(reserveObject)
     if(result.$metadata.httpStatusCode == 200){
         debug("successfully added:\n\t%O\nto DB", reserveObject)
         res.json({redirect: '/dashboard', reserve_status: {state: 'success', msg: "success"}})
