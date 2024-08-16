@@ -12,8 +12,8 @@ const port = process.env.PORT || DEFAULT_PORT;
 app.set('port', port);
 
 const certs = {
-    key: fs.readFileSync(path.join(__dirname, 'certs', 'golfbot-ssl.key')),
-    cert: fs.readFileSync(path.join(__dirname, 'certs', 'golfbot-ssl.crt')),
+    key: fs.readFileSync(path.join(__dirname, 'certs', 'key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, 'certs', 'certificate.pem')),
     passphrase: process.env.SSL_PASSPHRASE
 }
 
@@ -27,6 +27,7 @@ server.on('listening', onListening);
 
 
 function onError(error) {
+    debug("chink")
   if (error.syscall !== 'listen') {
     throw error;
   }

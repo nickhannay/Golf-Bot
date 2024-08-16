@@ -4,12 +4,14 @@ const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const session = require('express-session')
-const redisStore = require('./src/redis-config')
-const debug = require('debug')('golf-bot:app')
+const redisStore = require('./src/config/redis-config')
+
 const indexRouter = require('./src/routes/index');
 const dashboardRouter = require('./src/routes/dashboard');
 const reserveRouter = require('./src/routes/reserve');
 const cookieParser = require('cookie-parser');
+
+
 
 
 
@@ -27,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(session({
     resave: false,
-    secret: process.env.SESSION_SECRET,
+    secret: "gink",
     saveUninitialized: true,
     store: redisStore,
     cookie: {
