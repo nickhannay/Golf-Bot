@@ -27,9 +27,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+// configure session store
 app.use(session({
     resave: false,
-    secret: "gink",
+    secret: process.env.SESSION_STORE_SECRET,
     saveUninitialized: true,
     store: redisStore,
     cookie: {

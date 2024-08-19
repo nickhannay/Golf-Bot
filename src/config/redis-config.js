@@ -1,25 +1,24 @@
 const redis = require('redis')
 const RedisStore = require('connect-redis').default
 const debug = require('./debug-config')('redis')
-
-
+const port = 14330
+const host = 'redis-14330.c60.us-west-1-2.ec2.redns.redis-cloud.com'
 
 
 
 function configureRedis(){
-    const host = process.env.REDIS_HOST
-    const port = 11358
-
+    
+    debug.app("env vars:\n %s", process.env)
     const redisClient = redis.createClient({
         password: process.env.REDIS_PASS,
         socket: {
-            port:  port,
+            port: port,
             host: host 
         }
     })
     
     redisClient.connect().then(() => {
-        debug.app(`connected to: ${host}`)
+        debug.app(`connected to redis ${host}:${port}$`)
     
         const redisStore = new RedisStore({
             client: redisClient,
@@ -37,7 +36,5 @@ function configureRedis(){
 }
 
 const RedisConfig = configureRedis()
-
-
 
 module.exports = RedisConfig
