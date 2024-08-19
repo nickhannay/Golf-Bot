@@ -8,7 +8,6 @@ const host = 'redis-14330.c60.us-west-1-2.ec2.redns.redis-cloud.com'
 
 function configureRedis(){
     
-    debug.app("env vars:\n %s", process.env)
     const redisClient = redis.createClient({
         password: process.env.REDIS_PASS,
         socket: {

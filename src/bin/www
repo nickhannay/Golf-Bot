@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const app = require('../../app');
-const debug = require('debug')('golf-bot:server');
+const debug = require('../config/debug-config')('www');
 const https = require('https');
 const fs = require('fs')
 const path = require('path')
@@ -14,11 +14,11 @@ app.set('port', port);
 const certs = {
     key: fs.readFileSync(path.join(__dirname, 'certs', 'key.pem')),
     cert: fs.readFileSync(path.join(__dirname, 'certs', 'certificate.pem')),
-    passphrase: process.env.SSL_PASSPHRASE
 }
 
 
 // Start Server
+debug.app("building https server")
 const server = https.createServer(certs, app);
 server.listen(port);
 server.on('error', onError);
@@ -27,17 +27,16 @@ server.on('listening', onListening);
 
 
 function onError(error) {
-    debug("chink")
   if (error.syscall !== 'listen') {
     throw error;
   }
 
   switch (error.code) {
     case 'EACCES':
-      console.error(`Binding to port (${port}) requires elevated privileges`);
+      debug.error(`Binding to port (${port}) requires elevated privileges`);
       process.exit(1);
     case 'EADDRINUSE':
-      console.error(`Port (${port}) is already in use`);
+      debug.error(`Port (${port}) is already in use`);
       process.exit(1);
     default:
       throw error;
@@ -49,5 +48,5 @@ function onListening() {
     const addr = server.address();
     const bound_addr = addr.address === "::" ? 'localhost' : addr.address;
 
-    debug(`Server listening on https://${bound_addr}:${addr.port}`);
+    debug.app(`server listening on https://${bound_addr}:${addr.port}`);
 }

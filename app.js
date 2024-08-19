@@ -31,7 +31,7 @@ app.use(cors());
 // configure session store
 app.use(session({
     resave: false,
-    secret: process.env.SESSION_STORE_SECRET,
+    secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
     store: redisStore,
     cookie: {
