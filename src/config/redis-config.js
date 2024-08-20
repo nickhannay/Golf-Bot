@@ -1,13 +1,13 @@
 const redis = require('redis')
 const RedisStore = require('connect-redis').default
 const debug = require('./debug-config')('redis')
-const port = 14330
-const host = 'redis-14330.c60.us-west-1-2.ec2.redns.redis-cloud.com'
 
 
 
 function configureRedis(){
     
+    const port = process.env.REDIS_PORT
+    const host = process.env.REDIS_HOST
     const redisClient = redis.createClient({
         password: process.env.REDIS_PASS,
         socket: {
@@ -17,14 +17,14 @@ function configureRedis(){
     })
     
     redisClient.connect().then(() => {
-        debug.app(`connected to redis ${host}:${port}$`)
+        debug.msg(`connected to redis ${host}:${port}$`)
     
         const redisStore = new RedisStore({
             client: redisClient,
             prefix: "Golf-Bot",
             ttl: 3600
         })
-        debug.app('created redis store')
+        debug.msg('successfully built redis session store')
         return redisStore
 
     }).catch( error => {
@@ -34,6 +34,6 @@ function configureRedis(){
     
 }
 
-const RedisConfig = configureRedis()
+const RedisConfig = configureRedis
 
-module.exports = RedisConfig
+module.exports = RedisConfig()

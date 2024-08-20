@@ -1,4 +1,4 @@
-const debug = require('debug')('golf-bot:Golf-Bot')
+const debug = require('../config/debug-config')('GOLF_BOT')
 
 class GOLF_BOT{
     
@@ -73,7 +73,7 @@ class GOLF_BOT{
 
     static async calculatePrice(teeSheetId, token, golferId, acctNum, numGolfers){
         
-
+        debug.msg('calculating price')
         const headers = this.#createHeader(token)
         headers["Content-Type"] =  'application/json'
         const golfers = new Array(numGolfers)
@@ -107,7 +107,7 @@ class GOLF_BOT{
         })
 
         const jsonResponse = await res.json()
-
+        debug.msg(jsonResponse)
         return jsonResponse
     }
 

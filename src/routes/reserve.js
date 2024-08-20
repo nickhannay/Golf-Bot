@@ -1,14 +1,12 @@
 const express = require('express')
 const router = express.Router() 
-const debug = require('debug')('golf-bot:reserve-route')
+const debug = require('../config/debug-config')('reserve-route')
 const GOLF_BOT = require('../shared/golf-bot.js')
 const utils = require('../shared/utils.js')
-const {putReservation} = require('../database.js')
+const putReservation = require('../database.js')
 
 
 router.post('/', async (req, res) => {
-
-
 
     const reserveObject = {
         email: req.session.email.toString() ,
@@ -20,14 +18,14 @@ router.post('/', async (req, res) => {
         numGolfers: req.session.numGolfers.toString()
     }
 
-
+    debug.msg(`adding reservation for: ${golferId} on ${teeDate} to DB`)
     const result = await putReservation(reserveObject)
     if(result.$metadata.httpStatusCode == 200){
-        debug("successfully added:\n\t%O\nto DB", reserveObject)
+        debug.msg("successfully added:\n\t%O\nto DB", reserveObject)
         res.json({redirect: '/dashboard', reserve_status: {state: 'success', msg: "success"}})
     }
     else {
-        debug(`Error Adding to DB\n\tmsg: ${result.message}`)
+        debug.error(`Error Adding to DB\n\tmsg: ${result.message}`)
         if (result.name === "ConditionalCheckFailedException"){
             res.json({redirect: '/dashboard', reserve_status: {state: 'failure', msg: "duplicate"}})
         }
@@ -53,6 +51,7 @@ router.get('/', async (req, res) => {
 
     teeSheetId = parseInt(teeSheetId, 10)
     const priceSummary = await GOLF_BOT.calculatePrice(teeSheetId, token, golferId, acctNum, numPlayers)
+    
 
     let subTotal = priceSummary.shItemPricesGroup[0].extendedPrice
     let totalTax = priceSummary.shItemPricesGroup[0].taxAmount

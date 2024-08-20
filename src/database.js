@@ -1,5 +1,4 @@
 const {DynamoDBClient, PutItemCommand} = require('@aws-sdk/client-dynamodb')
-const debug = require('debug')('golf-bot:DB')
 
 
 const putReservation = async (reserveObject) => {

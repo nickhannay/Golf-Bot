@@ -46,6 +46,7 @@ app.use(cookieParser())
 
 
 app.use('/', indexRouter);
+
 app.use((req, res , next) => {
     if (req.session && req.session.token){
         return next()

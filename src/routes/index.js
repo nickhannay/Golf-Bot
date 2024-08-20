@@ -1,8 +1,7 @@
 "use strict";
 
-const express = require('express');
-const router = express.Router();
-const debug = require('debug')('golf-bot:index-route');
+const router = require('express').Router();
+const debug = require('../config/debug-config')('index-route')
 const GOLF_BOT = require('../shared/golf-bot.js');
 
 
@@ -18,9 +17,10 @@ router.post('/', async (req, res) => {
     let token = await GOLF_BOT.getToken(email, password)
 
 
-    debug(token)
+    debug.msg(token)
     if(token === null){
         res.render('index', {error: 'Invalid login credentials'})
+        debug.msg(`User <${email}> failed to logged in`)
     }
     else{
         const json = await GOLF_BOT.getUserInfo(token)
@@ -30,6 +30,7 @@ router.post('/', async (req, res) => {
         req.session.golferId = `${json.golferId}`
         req.session.email = `${email}`
         req.session.pass = `${password}`
+        debug.msg(`User <${email}> successfully logged in`)
         res.redirect('dashboard')
     }
 

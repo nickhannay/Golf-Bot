@@ -6,19 +6,27 @@ const https = require('https');
 const fs = require('fs')
 const path = require('path')
 
-const DEFAULT_PORT = 443
 
-const port = process.env.PORT || DEFAULT_PORT;
+const port = process.env.APPLICATION_PORT || process.env.DEFAULT_PORT
 app.set('port', port);
 
-const certs = {
-    key: fs.readFileSync(path.join(__dirname, 'certs', 'key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, 'certs', 'certificate.pem')),
+let certs
+try{
+    debug.msg(`loading ssl credentials`)
+    certs = {
+        key: fs.readFileSync(path.join(__dirname, 'certs', 'key.pem')),
+        cert: fs.readFileSync(path.join(__dirname, 'certs', 'certificate.pem')),
+    }
+} catch (error){
+    debug.error("Failed loading SSL credentials\n", error)
+    process.exit(1)
 }
+debug.msg('successfully loaded ssl credentials')
+
 
 
 // Start Server
-debug.app("building https server")
+debug.msg("building https server")
 const server = https.createServer(certs, app);
 server.listen(port);
 server.on('error', onError);
@@ -48,5 +56,5 @@ function onListening() {
     const addr = server.address();
     const bound_addr = addr.address === "::" ? 'localhost' : addr.address;
 
-    debug.app(`server listening on https://${bound_addr}:${addr.port}`);
+    debug.msg(`server listening on https://${bound_addr}:${addr.port}`);
 }

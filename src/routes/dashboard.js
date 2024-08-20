@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
+
+const router = require('express').Router();
 const GOLF_BOT = require('../shared/golf-bot.js')
-const debug = require('debug')('golf-bot:dashboard-route')
+const debug = require('../config/debug-config')('dashboard-route')
 const utils = require('../shared/utils.js')
 
 // render dashboard
@@ -9,7 +9,9 @@ router.get('/', async (req, res, next) => {
     const today = new Date()
     const searchDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
     
+    debug.msg(`retrieving tee times for: ${searchDate}`)
     const times = await GOLF_BOT.getTeeTimes(searchDate)
+    
 
     const availableTimes = Array.isArray(times)
     if(availableTimes){
